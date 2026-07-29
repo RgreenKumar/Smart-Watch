@@ -1,0 +1,2112 @@
+/* Sidebar.css */
+@media (max-width: 768px) {
+
+  *{
+     margin: 0px;
+     padding: 0px;
+   }
+
+   .navbar-nav.sidebar {
+     position: fixed;
+     height: 100%;
+     top: 0;
+     left: -250px; /* Hide the sidebar by default */
+     overflow-x: hidden;
+     transition: all 0.3s;
+     z-index: 999;
+   }
+
+
+ .container-fluid {
+     padding:20px !important;
+   }
+   .navbar{
+     position: relative;
+   }
+
+ 
+   .navbar-nav.sidebar.active {
+     left: 0; /* Show the sidebar when active */
+   }
+  .samp{
+   margin-left: 0 !important;
+  }
+}
+.container2{
+ background:white;
+ /* height: 80vh; */
+ margin-bottom: 60px;
+ margin-left: 60px;
+ margin-right: 60px;
+ /* margin-top:50px; */
+ 
+ border-style: solid;
+
+ border-radius: 8px;
+ box-shadow: 0 4px 8px rgba(0, 0, 255, 0.3);
+ /* padding-bottom: 300px; */
+ 
+ border-radius: 20px;
+ /* overflow-x: auto; */
+}
+/* Container for centering the form */
+.form-wrapper {
+ display: flex;
+ justify-content: center;
+}
+/* .cont2{
+   
+ overflow-x: auto;
+ 
+} */
+.row{
+padding: 40px;
+/* width:70vw; */
+}
+
+.temp{
+ display: flex;
+ flex-wrap: wrap;
+ padding-right: 5px;
+ padding-left: 5px;
+ padding-bottom: 5px;
+
+}
+/* Style for sidebar */
+#sidebar {
+ width: 200px;
+ height: 100vh;
+ background-color: #333;
+ color: #fff;
+ position: fixed;
+ top: 0;
+ left: -200px; /* Initially hidden */
+ transition: left 0.3s ease;
+}
+
+#sidebar.show {
+ left: 0; /* Show sidebar */
+}
+
+main {
+ margin-left: 200px; /* Adjust main content when sidebar is shown */
+}
+  
+/* Scrollbar styles for Webkit browsers */
+::-webkit-scrollbar {
+ width: 8px; /* Set the width of the scrollbar */
+ height: 8px; /* Set the height of the scrollbar */
+}
+
+::-webkit-scrollbar-track {
+ background: #f1f1f1; /* Color of the track */
+ border-radius: 10px; /* Round the corners of the track */
+}
+
+::-webkit-scrollbar-thumb {
+ background: #888; /* Color of the scrollbar thumb */
+ border-radius: 10px; /* Round the corners of the thumb */
+}
+
+::-webkit-scrollbar-thumb:hover {
+ background: #555; /* Color of the scrollbar thumb on hover */
+}
+
+.box{
+ border-radius: 3px;
+ width:'40px';
+ height:'30px';
+ border:2px solid;
+}
+
+.container3{
+ background:white;
+  height: 80vh;
+  margin-bottom: 60px;
+  margin-left: 60px;
+  margin-right: 60px;
+  /* margin-top:50px; */
+  
+  border-style: solid;
+ 
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 255, 0.3);
+  /* padding-bottom: 300px; */
+  
+  border-radius: 20px;
+  /* overflow: auto; */
+  
+}
+
+/* admin search bar */
+
+.form .fa-search{
+ position: absolute;
+ top:8px;
+ left: 420px;
+ color: #9ca3af;
+
+}
+
+.left-pan{
+ padding-left: 7px;
+}
+
+.left-pan i{
+
+padding-left: 10px;
+}
+
+.form-input{
+
+ height: 30px;
+ width: 200px;
+ text-indent: 33px;
+ border-radius: 20px;
+ margin-left: 400px;
+}
+
+.form-input:focus {
+ box-shadow: 0 0 5px rgb(0, 125, 255, 0.5); /* Adjust the shadow as needed */
+ border: none;
+}
+
+
+/* admin search bar end */
+
+/* notification icon */
+
+.notification-button{
+ position: relative;
+ margin: 10px 0 0 200px;
+
+}
+
+/* navbar dropdown */
+.adminprofile {
+ width: 30px;
+ height: 30px;
+ margin-left: 100px;
+ border-radius: 50%; /* Makes the element a circle */
+ background-color: white; /* Sets the background color to white */
+ display: flex; /* Centers content horizontally and vertically */
+ align-items: center; /* Centers content vertically */
+ justify-content: center; /* Centers content horizontally */
+}
+
+.adminfafauser{
+ color:black;
+
+}
+
+.adminprofile img {
+ width: 20%;
+ height: 20%;
+ object-fit: cover; /* Ensures the image covers the circle */
+}
+
+.adminprofile i {
+ font-size: 16px; /* Adjust size as needed */
+}
+
+/* Override hover effect */
+.adminprofile:hover {
+ color: black; /* Ensures the icon color remains black on hover */
+}
+
+/*table */
+
+
+
+.even-row {
+ background-color: #EFEEEE; /* Light grey for even rows */
+}
+
+.odd-row {
+ background-color: #ffffff; /* White for odd rows */
+}
+
+.table-header {
+ background-color: #CFCFCF; /* Darker header color */
+ color: black;
+ 
+}
+
+
+
+.ms-auto button {
+ background-color: transparent;
+ border: none;
+ color: white;
+}
+
+.ms-auto button:hover {
+ color: #d1d1d1; /* Lighter hover color */
+}
+
+td{
+ color:black;
+}
+
+/* .table-container {
+ overflow-x: auto;
+ white-space: nowrap;
+ height: 68.70vh;
+ border-radius: 20px;
+ border-bottom-left-radius: 20px;
+ border-bottom-right-radius: 20px;
+ background-color: skyblue;
+
+} */
+
+.outer-container {
+ overflow: hidden;
+ border-bottom-left-radius: 20px;
+ border-bottom-right-radius: 20px;
+ }
+
+.table-container {
+  overflow-x: auto; /* Horizontal scrolling only */
+  overflow-y: auto; /* Disable vertical scrolling */
+ white-space: nowrap;
+ height: 68.70vh;
+}
+
+.table-container2 {
+ overflow-x: auto;
+ white-space: nowrap;
+}
+
+.table-container3 {
+ overflow-x: auto;
+ white-space: nowrap;
+ height: 68.70vh;
+}
+.table {
+ margin: 0;
+}
+.outer-container1{
+  overflow: auto;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+/* end table view */
+
+/* notification-style */
+
+.notificationPanel {
+ width: 400px;
+ right: 10px; /* Ensure it's aligned to the right */
+ top: 60px;
+ position: fixed;
+ z-index: 1000;
+ background-color: white; /* Ensure it has a background to avoid overlap transparency */
+ border-radius: 8px;
+ box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.headcontrols {
+ padding: 10px;
+ border-bottom: 1px solid #ddd;
+}
+
+.scrollclass {
+ max-height: 500px;
+ overflow-y: auto;
+ padding-right: 10px; /* Ensure some padding for better scroll visibility */
+}
+
+.notificationElement {
+ padding: 10px;
+ border-bottom: 1px solid #eee;
+ cursor: pointer;
+ display: flex;
+ align-items: start;
+}
+
+.notificationElement:hover {
+ background-color: #f9f9f9;
+}
+
+.image-placeholder {
+ width: 100px;
+ height: 120px;
+ background-color: #f0f0f0; /* Light grey background as a placeholder */
+}
+
+
+.upload-box {
+ width: 100%;
+ height: 100px; /* Adjust the height as needed */
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ border-radius: 4px;
+ cursor: pointer;
+ 
+}
+
+.file-bg {
+ background-color: #e9ecef9e;
+ border-radius: 2px;
+}
+
+
+.drag-drop-area {
+ /* padding: 1rem; */
+ border: 2px solid;
+ border-radius: 4px;
+ text-align: center;
+ flex: 1;
+ height: 100px;
+ width:150px;
+}
+
+
+
+/* Default height */
+.space {
+ height: 100px;
+}
+
+/* Medium devices (tablets, 768px and up) */
+@media (max-width: 992px) {
+ .space {
+   height: 130px; /* Adjust height for medium screens */
+ }
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 768px) {
+ .space {
+   height: 30px; /* Adjust height for small screens */
+ }
+}
+
+/* Extra small devices (portrait phones, less than 576px) */
+@media (max-width: 576px) {
+ .space {
+   height: 100px; /* Adjust height for extra small screens */
+ }
+}
+
+.label-width {
+ width: 200px; /* Adjust this value as needed */
+}
+.input-width {
+ width: calc(100% - 220px); /* Adjust based on label width and padding/margins */
+}
+
+.choosefile{
+ margin-top:63px;
+}
+
+/* video preview */
+
+
+
+.preview-container {
+ margin-top: 40px;
+ min-height: 70vh;
+}
+
+/* .preview-box {
+ background-color: white;
+ border-radius: 8px;
+ max-width: 900px;
+ width: 100%;
+} */
+
+.thumbnail-container {
+  position: relative; 
+ display: inline-block;
+ cursor: pointer; 
+ width: 100%; 
+ height: 100% ;
+ object-fit: cover;
+ border-radius: 8px;
+ z-index: 1;
+}
+
+.thumbnail-image {
+ max-width: 300px;
+ height: 200px;
+ border-radius: 10px;
+}
+
+.play-icon {
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ transform: translate(-50%, -50%);
+ font-size: 60px;
+ color: white;
+ opacity: 0.8;
+ pointer-events: none; /* Allow clicking through the icon */
+}
+
+.video-container {
+ max-width: 300px;
+ margin: 0 auto;
+ border-radius: 10px;
+}
+
+.details-box {
+ max-width: 620px;
+ border-radius: 15px;
+ border: 2px solid black;
+  white-space: normal; /* Ensure text wraps to the next line as expected */
+ box-sizing: border-box; /* Ensure padding and border are included in the element's total width and height */
+}
+
+
+.details-box table {
+ width: 600px; /* Make the table take up the full width of the container */
+ table-layout: fixed; /* Ensure equal spacing across columns */
+ border-collapse: collapse; /* Optional: Remove gaps between table cells */
+}
+
+.details-box th,
+.details-box td {
+ padding: 8px; /* Add padding for better spacing */
+ text-align: left; /* Align headers and cells to the left */
+ vertical-align: top; /* Align text at the top of the cell */
+ overflow-wrap: break-word; /* Ensure text within cells breaks properly */
+ word-wrap: break-word; /* Older property for compatibility */
+ word-break: break-word; /* Standard property to break words */
+}
+
+.details-box th {
+ width: 50%; /* Set a fixed width for table headers */
+}
+
+.details-box td {
+ width: 70%; /* Set a fixed width for table cells */
+}
+
+/* Specific styling for the Description cell */
+.details-box td.description {
+ word-break: break-all; /* Break words at any character to prevent overflow */
+ white-space: normal; /* Ensure text wraps normally */
+ hyphens: auto; /* Optional: Add hyphens when breaking words */
+}
+
+.buttoncontainer{
+  display:flex;
+  align-items:center !important;
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 150px; /* Adjust as needed */
+  position: relative;
+  cursor: pointer;
+}
+
+.truncate:hover::after {
+  content: attr(title); /* Use the title attribute as the tooltip content */
+  position: absolute;
+  background: #333;
+  color: #fff;
+  padding: 5px;
+  border-radius: 4px;
+  white-space: nowrap;
+  top: 100%; /* Below the text */
+  left: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+
+.button-group .btn {
+ width: 120px;
+}
+
+
+.select-with-arrow {
+ appearance: none;
+ -webkit-appearance: none;
+ -moz-appearance: none;
+ padding-right: 30px;
+}
+
+.dropdown-arrow {
+ position: absolute;
+ right: 10px;
+ top: 50%;
+ transform: translateY(-50%);
+ pointer-events: none;
+}
+
+.dropdown-arrow::after {
+ content: '\25BC'; /* Unicode for downward arrow */
+ font-size: 16px;
+ color: #000;
+}
+
+/* dashboard */
+
+.dashboard-content {
+ padding: 20px;
+}
+
+.stats-cards {
+ display: flex;
+ justify-content: space-between;
+ margin-bottom: 20px;
+}
+
+.carddashboard {
+ background-color: #1a2b4c; /* Dark background color */
+ color: #ffde00; /* Yellow text color */
+ border-radius: 10px; /* Rounded corners */
+ width: 200px; /* Fixed width for consistency */
+ height:110px;
+ text-align: center; /* Center align text and image */
+ position: relative; /* For absolute positioning of the link */
+ margin: 10px; /* Space around the card */
+}
+
+.carddashboard h4 {
+ margin-bottom: 10px; /* Space below the heading */
+ font-size: 18px; /* Adjust heading size */
+ color:white;
+ font-weight: bold;
+ margin-top: 10px;
+}
+
+.icon-text {
+ display: flex; /* Use flexbox to align icon and text */
+ align-items: center; /* Align items vertically centered */
+ justify-content: center; /* Center align horizontally */
+ margin-bottom: 10px; /* Space below the icon-text container */
+}
+
+.icon-text img {
+ width: 50px; /* Set image width */
+ height:50px; /* Set image height */
+ margin-left: -60px; /* Space between the icon and text */
+ margin-top: -10px;
+}
+
+.icon-text span {
+ font-size: 24px; /* Larger text for the number */
+ margin: 0; /* Remove default margin */
+ font-weight: bold; /* Bold text */
+ margin-left: 30px;
+ color:yellow;
+}
+
+
+
+.carddashboard a {
+ width:200px;
+ justify-content: center;
+ color: white; 
+ background-color:#863254;
+ margin-top:-5px;
+ font-weight: bold; 
+ text-decoration: none;
+ position: absolute;
+ /* text-align: left; */
+ right: 0;
+ border-bottom-left-radius: 10px;
+ border-bottom-right-radius: 10px;
+}
+
+.get-more-link {
+ display: inline-flex;
+ align-items: center;
+ text-decoration: none; /* Remove underline from the link */
+ color: inherit; /* Inherit color from parent */
+}
+
+.arrow-icon {
+ margin-left: 4px; /* Adjust spacing as needed */
+ width: 30px; /* Set icon size */
+ height: 30px; /* Set icon size */
+}
+
+
+.latest-sections {
+ display: flex;
+ justify-content: space-between;
+ margin-top: 60px;
+}
+
+.latest-users,
+.latest-videos {
+ background-color:#2b2a52;
+ color: #fff;
+ border-radius: 10px;
+ padding: 20px;
+ width: 48%;
+}
+
+.latest-users h4,
+.latest-videos h4 {
+ margin-bottom: 10px;
+ font-size: 25px;
+ color:white
+}
+.latest-videos span{
+ font-size: 25px;
+}
+.latest-users span {
+ font-size: 14px;
+ color: #888;
+}
+
+.users-list {
+ display: grid;
+ grid-template-columns: repeat(5, 1fr); /* one row with 5 users */
+ gap: 20px;
+ justify-items: center; /* Center each user horizontally */
+}
+
+.user-container {
+ display: flex;
+ flex-direction: column;
+ align-items: center; /* Center icon and text vertically */
+ text-align: center;
+}
+
+.user-icon {
+ background-color: white;
+ border-radius: 50%; /* Circular shape */
+ width: 50px;
+ height: 50px;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ margin-bottom: 10px;
+}
+
+.user-icon i {
+ color: #2b2a52;
+ font-size: 25px; /* Icon size */
+}
+
+.user-info {
+ display: flex;
+ flex-direction: column; /* Stack the username and time vertically */
+ align-items: center;
+}
+
+.username {
+ font-size: 14px;
+ font-weight: bold;
+ color:white; /* Username color */
+ margin-bottom: 5px; /* Spacing between username and time */
+}
+
+.time-ago {
+ font-size: 12px;
+ color: white; /* Time ago color */
+}
+
+
+.latest-videos .video {
+ display: flex;
+ align-items: center;
+ background-color:rgba(255, 255, 255,25%);
+ padding: 10px;
+ border-radius: 10px;
+ margin-bottom: 10px;
+}
+
+.latest-videos .video img {
+ width: 50px;
+ height: 50px;
+ border-radius: 5px;
+ margin-right: 10px;
+}
+
+.latest-videos .video p {
+ margin: 0;
+ font-size: 16px;
+}
+
+.latest-videos .video span {
+ display: block;
+ font-size: 14px;
+ color: #888;
+}
+
+@media (max-width: 768px) {
+ .stats-cards {
+   flex-direction: column; /* Stack cards vertically */
+   align-items: center; /* Center align cards */
+ }
+
+ .carddashboard {
+   width: 100%; /* Full width for cards */
+   margin: 10px 0; /* Adjust margin for vertical stacking */
+ }
+
+ .icon-text img {
+   margin-left: 0; /* Center icon above text */
+   margin-top: 0;
+ }
+
+ .icon-text p {
+   margin-left: 0; /* Center text below icon */
+   font-size: 20px; /* Slightly smaller font for text */
+ }
+
+ .carddashboard a {
+   width: 100%; /* Full width for link button */
+   text-align: center; /* Center align text */
+   right: auto; /* Remove right positioning */
+   left: 0;
+   bottom: 0;
+   margin: 0;
+   padding: 10px 0;
+ }
+
+ .latest-sections {
+   flex-direction: column; /* Stack sections vertically */
+ }
+
+ .latest-users,
+ .latest-videos {
+   width: 100%; /* Full width for sections */
+   margin-bottom: 20px; /* Space between sections */
+ }
+
+ .user {
+   width: 60px; /* Smaller user avatars */
+   height: 60px;
+ }
+
+ .latest-videos .video img {
+   width: 40px; /* Smaller video thumbnails */
+   height: 40px;
+ }
+
+ .latest-videos .video p {
+   font-size: 14px; /* Smaller text for video titles */
+ }
+
+ .latest-videos .video span {
+   font-size: 12px; /* Smaller text for video details */
+ }
+}
+
+@media (max-width: 480px) {
+ .stats-cards {
+   padding: 0 10px; /* Reduce padding for smaller screens */
+ }
+
+ .carddashboard h4 {
+   font-size: 16px; /* Smaller heading size */
+ }
+
+ .icon-text p {
+   font-size: 18px; /* Smaller text size */
+ }
+
+ .latest-users,
+ .latest-videos {
+   padding: 15px; /* Reduce padding for smaller sections */
+ }
+}
+
+/* userside watchpage */
+/* .videothumbnail{
+ width:100%;
+ height:500px;
+ border:1px solid white;
+ object-fit: contain;
+} */
+
+.videothumbnail {
+ width: 100%;
+ height: 700px;
+ border: 1px solid black;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ overflow: hidden;
+ position: relative;
+}
+
+.videothumbnail img {
+ object-fit: cover;
+ width: 100%;
+ height: 100%;
+ opacity: 0.6; /* Reduce opacity of the image */
+ transition: opacity 0.3s ease; /* Smooth transition on hover */
+}
+
+.overlay-buttons {
+ position: absolute;
+ bottom: 120px;
+ left: 50px;
+ display: flex;
+ align-items: center;
+}
+
+.share-icon {
+ font-size: 24px;
+ color: white;
+ cursor: pointer;
+}
+
+/* #button1{
+ background-color: rgb(194, 39, 45);
+ padding:8px 10px;
+ color:white;
+ border-radius: 4px;
+ 
+}
+
+#button2{
+ background-color: rgba(128, 128, 128, 0.4); 
+ padding:8px 10px;
+ color:white;
+ border-radius: 4px;
+} */
+
+.overlay-buttons #button1 {
+ background-color: rgba(194, 39, 45, 1); /* Bright button background */
+ border: none; /* Remove default button border */
+ color: white; /* Dark text color for contrast */
+ padding: 10px 20px; /* Add some padding */
+ margin: 5px; /* Space between buttons */
+ border-radius: 5px; /* Rounded corners */
+ cursor: pointer; /* Change cursor to pointer */
+ transition: background-color 0.3s ease; /* Smooth background change on hover */
+}
+
+.overlay-buttons #button2 {
+ background-color: rgba(128, 128, 128, 0.6); /* Bright button background */
+ border: none; /* Remove default button border */
+ color: white; /* Dark text color for contrast */
+ font-weight: bold;
+ padding: 10px 20px; /* Add some padding */
+ margin: 5px; /* Space between buttons */
+ border-radius: 5px; /* Rounded corners */
+ cursor: pointer; /* Change cursor to pointer */
+ transition: background-color 0.3s ease; /* Smooth background change on hover */
+}
+
+.overlay-buttons #button1:hover {
+ background-color: rgba(194, 39, 45, 0.8); /* Brighter on hover */
+}
+
+.overlay-buttons #button2:hover {
+ background-color: rgba(128, 128, 128, 0.3); /* Brighter on hover */
+}
+
+.overlay-span {
+ position: absolute;
+ bottom: 80px;
+ left: 50px;
+ display: flex;
+ align-items: center;
+}
+
+.content {
+ /* width: 100%; */
+ height: 100vh; /* Set to the full viewport height */
+ margin: 50px 50px 50px 50px;
+ /*  2px solid white; */
+}
+
+.title{
+ font-size: 25px;
+ font-weight: bold;
+}
+
+.castandcrew{
+ margin-top: 30px;
+ font-size: 25px;
+ font-weight: bold;
+}
+
+.story{
+ margin-top: 30px;  
+}
+
+.storyspan{
+ font-size: 25px;
+ font-weight: bold;
+}
+
+.description{
+ margin-top: 20px;
+ padding-left: 30px;
+}
+
+.suggestion{
+ margin-top: 30px;
+ font-size: 25px;
+ font-weight: bold;
+}
+
+/* bulk action dropdown*/
+.position-relative {
+ position: relative;
+}
+
+.bulk-options {
+ position: absolute;
+ top: 100%; /* Positions the dropdown below the button */
+ right: 0; /* Aligns the dropdown to the right */
+ background-color: white;
+ box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+ padding: 8px;
+ z-index: 1000; /* Ensure the dropdown appears above other elements */
+}
+
+.bulk-options .btn {
+ width: 100%;
+}
+
+
+/* container */
+.toggle {
+ /* width: 17.3%; */
+ /* height: 10%; */
+ background-color: rgba(43, 42, 82, 0.3);
+ border-radius: 20px;
+ padding: 10px;
+}
+
+.custom-btn {
+ border: none !important;
+ font-weight: bold;
+ font-size: 16px;
+ background-color: transparent !important;
+ color: #2b2a52 !important;
+ transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Active button styles */
+.active-btn {
+ background-color: #2b2a52 !important;
+ color: white !important;
+ border-radius: 50px;
+}
+
+/* Inactive button styles */
+.inactive-btn {
+ background-color: transparent !important;
+ color:  #2b2a52 !important;
+}
+
+.table-wrapper {
+ width: 60%; /* Set width to 60% */
+ height: auto; /* Height will adjust based on the content */
+ margin: 0 auto; /* Center the table container horizontally */
+ border:1px solid #2b2a52;
+ max-height: 400px; /* Set a max height for the container */
+ overflow-y: auto; /* Enable vertical scrolling */
+ /* padding: 10px; */
+}
+
+
+.table-responsive {
+ width: 100%;
+}
+
+/*user side container */
+.container-list {
+ display: flex;
+ flex-direction: column;
+}
+
+.customcontainer {
+ max-width: 1998px;
+ margin-right: auto;
+ margin-left: auto;
+ padding-right: 0.5rem;
+ padding-left: 0.5rem;
+ margin-bottom: 30px; /* Adds more space between containers */
+ padding: 0 30px; 
+}
+
+.customcontainer span {
+ font-size: 25px;
+ font-weight: bolder;
+ display: block; /* Ensure the container name takes a full line */
+ margin-bottom: 10px; /* Space between the title and images */
+}
+
+.navigation {
+ display: flex;
+ align-items: center;
+ justify-content: space-between; /* Align buttons and images */
+ margin-top: 10px; /* Optional: Space between title and navigation */
+}
+
+.items {
+ display: flex; /* Use flexbox for easier alignment */
+ overflow-x: hidden; /* Enable horizontal scrolling if needed */
+ gap: 15px; /* Adjust this value to control the gap between items */
+ flex-grow: 1; /* Allow items div to take up remaining space */
+}
+
+.navigation-btn {
+ width: 30px; /* Adjust button width */
+ height: 30px; /* Adjust button height */
+ margin: 0 10px; /* Space around buttons */
+}
+
+.item {
+ display: flex;
+ flex-direction: column; /* Align image and title vertically */
+ align-items: center; /* Center content horizontally */
+ margin: 10px 5px; 
+
+}
+
+.item img {
+ height: 250px;
+ width: 250px; 
+ border-radius: 10px;
+}
+
+.item p {
+ margin-top: 10px; /* Reduced margin-top for the text below image */
+}
+
+.item .overlay {
+ position: absolute; /* Position overlay over the image */
+ display: flex; /* Use flexbox to center text */
+ flex-direction: column; /* Stack text vertically */
+ /* align-items: center; 
+  justify-content: center;  */
+  margin: 135px;
+  width: 220px;
+ background: rgba(27, 27, 26, 0.5);
+ color: white; /* Text color */
+ /* opacity: 0; Initially hidden */
+ /* transition: opacity 0.3s; Smooth transition for visibility */
+}
+
+
+/* CSS for banner container and slide */
+.banner-container {
+ display: flex;
+ overflow: hidden;
+ position: relative;
+ width: 100%;
+ height: 550px; /* Adjust the height as needed */
+ margin-bottom: 20px;
+ 
+ 
+}
+
+.banner-items {
+ display: flex;
+ transition: transform 0.10s ease-in-out;
+ width: 100%;
+ 
+ 
+}
+
+.banner-slide {
+ display: flex;
+}
+
+.banner-item {
+ min-width: 100%; /* Adjust width considering container padding */
+ transition: transform 0.10s ease-in-out;
+ flex: 0 0 auto; /* Width adjustment instead of full flex-basis */
+ padding: 0 15px; /* Padding inside container */
+}
+
+
+
+.banner-item img {
+ width: 100%;
+ height: 100%;
+ object-fit: cover;
+}.modern-progress-bar {
+ width: 100%;
+ height: 20px;
+ margin-bottom: 50px;
+ background-color: #f5f5f5;
+ border-radius: 20px;
+ box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+ position: sticky; /* Make it sticky */
+ top: 0; /* Stick to the top of the viewport */
+ z-index: 10; /* Ensure it appears above other content */
+}
+
+.progress-indicator {
+ height: 100%;
+ background-color: #2196f3;
+ transition: width 0.5s ease;
+}
+
+.steps {
+ display: flex;
+ justify-content: space-between;
+ margin-top: 10px;
+}
+
+.step {
+ flex: 1;
+ text-align: center;
+ position: relative;
+}
+
+.step span {
+ display: inline-block;
+ padding: 5px;
+ border-radius: 5px;
+ background-color: #ffffff;
+ box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+ transition: background-color 0.3s;
+}
+
+.step.completed span {
+ background-color: #e1f5fe;
+ color: #2196f3;
+}
+
+.videoscreenitems {
+ display: flex;
+ justify-content: center;
+ padding: 10px;
+}
+
+.videoscreenitem-row {
+ display: flex;
+ flex-wrap: wrap; /* Allows items to wrap if they exceed the container width */
+ gap: 20px; /* Adds space between the items */
+}
+
+.videoscreenitem {
+ flex: 0 1 200px; /* Controls the width of each item (200px or more depending on the screen) */
+ text-align: center;
+}
+
+.videoscreenthumbnail {
+ width: 100%; /* Ensure image takes full width of the item */
+ height: auto;
+ border-radius: 8px;
+ margin-bottom: 10px;
+}
+
+/*Library Screen */
+/* Custom scrollbar styles for WebKit browsers */
+.content-area::-webkit-scrollbar {
+ width: 8px; /* Width of the scrollbar */
+}
+
+.content-area::-webkit-scrollbar-thumb {
+ /* background-color: #2149B1; Color of the scrollbar thumb */
+ background-color: black; /* Color of the scrollbar thumb */
+ border-radius: 4px; /* Rounded corners for the scrollbar thumb */
+}
+
+.content-area::-webkit-scrollbar-track {
+ background: transparent; /* Background color of the scrollbar track */
+}
+
+/* For Firefox */
+.content-area {
+ scrollbar-width: thin; /* Set scrollbar width to thin */
+ /* scrollbar-color: #2149B1 transparent;  */
+ scrollbar-color:black transparent;
+}
+
+.watchlater{
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ width: 120px;
+ margin-bottom: 50px;
+ text-align: center;
+ position: relative;
+}
+
+.watchlater img{
+ width: 150px;
+ height: 150px;
+ border-radius: 10px;
+}
+
+.remove{
+ background-color: rgba(128, 128, 128, 0.6); /* Bright button background */
+}
+
+.likedsongs{
+ display: flex;
+ flex-direction: row;
+ align-items: center;
+ width: 120px;
+ margin-bottom: 10px;
+ text-align: center;
+ position: relative;
+}
+
+/*music page */
+.music-player {
+ display: flex;
+ max-width: 100%;
+ padding: 70px;
+ color: white;
+}
+
+.left-side {
+ flex: 1;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ margin-right: 20px;
+ font-family: 'Open Sans', sans-serif;
+}
+
+.album-art {
+ width: 100%;
+ max-width: 300px;
+ height:300px;
+ border-radius: 15px;
+ margin-bottom: 20px;
+}
+
+.controls {
+ display: flex;
+ gap: 40px;
+ margin-top: 20px;
+}
+
+.control-button {
+ background-color: transparent;
+ border: none;
+ color: white;
+ font-size: 24px;
+ cursor: pointer;
+ transition: color 0.3s ease;
+}
+
+.control-button:hover {
+ color: #e50914;
+}
+
+.actions {
+ display: flex;
+ gap: 40px;
+ margin-top: 40px;
+}
+
+.action-button {
+ background-color: transparent;
+ border: none;
+ color: white;
+ font-size: 14px;
+ cursor: pointer;
+ transition: color 0.3s ease;
+}
+
+.action-button:hover {
+ color: #e50914;
+}
+
+
+
+.right-side {
+ flex: 2 1;
+ display: flex;
+ flex-direction: column;
+ justify-content: flex-start;
+ font-family: 'Open Sans', sans-serif;
+}
+
+.song-list {
+ list-style: none;
+ padding: 50px;
+ overflow-y: auto;
+}
+
+.song-list li {
+ padding: 10px 0;
+ border-bottom: 1px solid #333;
+ cursor: pointer;
+}
+
+.song-list li.active {
+ background-color: #444;
+ font-weight: bold;
+}
+
+.song-list li:hover {
+ background-color: #333;
+}
+
+.song-details {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+}
+
+.song-duration {
+ color: #999;
+ font-size: 14px;
+ margin-left: auto;
+}
+
+.song-artist {
+ font-size: 12px;
+ color: #bbb;
+ margin-top: 5px;
+}
+
+.song-list::-webkit-scrollbar {
+ width: 8px;
+}
+
+.song-list::-webkit-scrollbar-track {
+ background: transparent;
+}
+
+.song-list::-webkit-scrollbar-thumb {
+ background-color: black;
+ border-radius: 4px;
+}
+
+.song-list::-webkit-scrollbar-thumb:hover {
+ background-color: black;
+}
+
+
+.bottom-bar {
+ position: fixed;
+ bottom: 0;
+ left: 0;
+ right: 0;
+ display: flex;
+ align-items: center;
+ padding: 10px 20px;
+ background-color: #1d1b31;
+ color: #fff;
+ font-family: 'Open Sans', sans-serif;
+}
+
+
+/* Bottom Bar Progress */
+/* Progress Bar Container */
+.progress-line-container {
+ position: absolute;
+ width: 100%;
+ top: 0;
+ left: 0;
+ height: 4px;
+ background-color:#1d1b31;
+ cursor: pointer;
+}
+
+.progress-line {
+ position: absolute;
+ top: 0;
+ left: 0;
+ height: 4px;
+ background-color: red;
+ transition: width 0.1s linear;
+}
+
+
+.bottom-bar-art {
+ width: 50px;
+ height: 50px;
+ border-radius: 5px;
+ margin-right: 15px;
+}
+
+.bottom-bar-info {
+ flex: 1;
+}
+
+/* .bottom-bar-time {
+ flex: 1;
+} */
+
+.bottom-bar-title {
+ font-size: 16px;
+ font-weight: bold;
+ color: #fff;
+}
+
+.bottom-bar-artist {
+
+  font-size: 14px;
+  color: #d1d1e0;
+}
+
+.bottom-bar-controls{
+  flex:1.5;
+}
+
+.bottom-bar-controls .control-button {
+  margin-left: 15px;
+  padding: 10px;
+  font-size: 18px;
+} 
+
+/* Modal Style */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Background */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: white;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+}
+
+/* Close Button */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.bottom-bar-time span {
+   margin-right: 30px;
+}
+
+.volume-container {
+  position: relative;
+  display: inline-block;
+}
+
+.volume-slider-container {
+  position: absolute;
+  top: -20px; /* Adjust as needed to display above the button */
+  right: 0;
+  width: 100px; /* Adjust slider width */
+}
+
+input[type='range'] {
+  width: 100%;
+}
+
+.volume-container button {
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  margin-right: 20px;
+}
+
+/* forgetpassword screen style */
+
+
+ /* .forgot-password-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 120vh;
+  margin-top: 100px;
+  color: white;
+  font-family: 'Open Sans', sans-serif;
+} */
+
+.forgot-password-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 80vh; /* Minimum height to cover the viewport */
+  margin-top: 100px;
+  color: white;
+  font-family: 'Open Sans', sans-serif;
+  padding-bottom: 50px; /* Adds space for extra content */
+}
+
+
+
+
+
+.form-box {
+  background: linear-gradient(to top, #141335, #0c0d1a); 
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  text-align: left;
+  width: 100%;
+  height: 60%;
+  max-width: 600px;
+  display: flex;              
+  flex-direction: column;     
+  align-items: center;        
+  justify-content: center;    
+  font-family: 'Open Sans', sans-serif;
+}
+
+.back-to-login {
+  text-decoration: none;
+  font-size: 16px;
+  align-self: flex-start; 
+  /* margin-bottom: 10px;     */
+}
+
+.back-to-login:hover {
+  color: red;
+}
+
+.logoimage {
+  width: 200px;
+ 
+}
+
+.form-box span {
+  /* margin-bottom: 10px; */
+  font-size: 30px;
+  font-weight: bold;
+  align-self: flex-start; 
+}
+
+.forgot {
+  margin-top: 10px;
+  font-size: 20px !important;
+}
+
+.forgot1 {
+  font-size: 14px !important;
+  color:#a09f9f !important;
+}
+
+.resend{
+  font-size: 10px !important;
+  margin-top: 3px;
+  color:#a09f9f !important;
+}
+
+.resend1{
+  font-size:10px !important;
+  margin-top: 3px;
+  cursor: pointer;
+  text-decoration: underline;
+} 
+
+
+
+.formfield {
+  width:60%;
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start; 
+}
+
+
+
+.input-container {
+  position: relative; /* To position the icon inside the container */
+  width: 100%; /* Adjust as needed */
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.8rem;
+  margin-top: 15px;
+  border: 1px solid white;
+  border-radius: 10px;
+  background-color:  rgb(43 42 82);
+  color: white;
+  font-size: 16px;
+  outline: none;
+}
+
+.eye-icon {
+  position: absolute;
+  right: 10px; /* Adjust for spacing */
+  top: 65%;
+  transform: translateY(-50%); 
+  cursor: pointer;
+  color:white; /* Neutral color */
+  
+}
+
+
+
+.eye-icon:hover {
+  color: red; 
+  
+}
+
+.password-eye-icon{
+  position: absolute;
+  right: 10px; /* Adjust for spacing */
+  top: 30%;
+  transform: translateY(-50%); 
+  cursor: pointer;
+  color:white; /* Neutral color */
+}
+
+.password-eye-icon:hover{
+  color:red;
+}
+
+.confirm-eye-icon{
+  position: absolute;
+  right: 10px; /* Adjust for spacing */
+  top: 80%;
+  transform: translateY(-50%); 
+  cursor: pointer;
+  color:white; /* Neutral color */
+}
+
+.confirm-eye-icon:hover{
+  color:red;
+}
+
+
+
+.submit-verifybutton {
+  width: auto;
+  padding: 5px 15px;
+  color: white;
+  font-weight: bold;
+  border:1px solid white;
+  background-color: rgb(43 42 82) !important;  
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+ margin-top: 15px;
+  align-self: flex-end; 
+} 
+
+
+/*register */
+
+.register-box {
+  background: linear-gradient(to top, #141335, #0c0d1a); 
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  width: 100%;
+  height: 60%;
+  max-width: 600px;
+  display: flex;              
+  flex-direction: column;     
+  align-items: center;        
+  justify-content: center;    
+  font-family: 'Open Sans', sans-serif;
+}
+
+
+.register-box span {
+  font-size: 25px;
+  font-weight: bold;
+  align-self: flex-start; 
+}
+
+.registerfield {
+  width:80%;
+  display: flex;
+  flex-direction: column; 
+  align-items: flex-start; 
+}
+
+.registerfield label{
+  margin-top: 20px;
+}
+
+.registerfield span {
+  font-size: 20px;
+  text-align: center; /* Centers text horizontally inside the parent */
+  display: block; /* Ensures the span takes up the full width of the parent */
+  margin: 10px auto; /* Aligns the span within the parent container */
+}
+
+
+.register-container {
+  position: relative; /* To position the icon inside the container */
+  width: 100%; /* Adjust as needed */
+}
+
+.otp-container {
+  position: relative;
+  width: 100%; /* Adjust as needed */
+}
+
+.verify-container {
+  position: relative;
+  width: 40%; /* Adjust as needed */
+  margin-top: 10px;
+}
+
+.register-field {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid white;
+  border-radius: 10px;
+  background-color:  #141335;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  padding-right: 90px; /* Space for the button */
+  box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
+
+.get-otp-button {
+  position: absolute;
+  right: 10px; 
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 5px 10px; /* Adjust button size */
+  background-color: rgb(43 42 82);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.get-verify-button {
+  position: absolute;
+  width:50%;
+  left: 335px; 
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 5px 10px; /* Adjust button size */
+  background-color: rgb(170, 154, 11);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.get-tick-button{
+  position: absolute;
+  width:50%;
+  left: 335px; 
+  top: 20%;
+  transform: translateY(-50%);
+  padding: 5px 10px; /* Adjust button size */
+  background-color: rgb(170, 154, 11);
+  color: green !important;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+
+/* .registerfield-forget{
+  align-items: flex-start; 
+} */
+
+ .submit-registerbutton {
+  display: block; /* Ensure the button is treated as a block-level element */
+  width: auto;
+  padding: 5px 15px;
+  color: white;
+  font-weight: bold;
+  background-color: rgb(43 42 82) !important;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 30px auto 0; /* Center the button with auto margins */
+  text-align: center;
+}
+
+.disabled-button {
+  background-color: #ccc; /* Gray background for disabled button */
+  cursor: not-allowed; /* Show not-allowed cursor */
+  opacity: 0.7; /* Make it appear slightly faded */
+}
+
+
+/* user login */
+
+.or-container {
+  display: flex; /* Use flexbox for layout */
+  align-items: center; /* Vertically align elements */
+  justify-content: center; /* Center the content horizontally */
+  width: 100%; /* Full-width container */
+  margin-top: 10px;
+}
+
+.line {
+  width: 20%; /* Set a specific width for the lines */
+  height: 1px; /* Line thickness */
+  background-color: #ccc; /* Line color */
+  margin: 8px 10px; /* Space between the line and the "OR" */
+}
+
+.or-text {
+  font-size: 15px !important; /* Size of "OR" text */
+  color: #555; /* Text color */
+  text-align: center; /* Center the text */
+  white-space: nowrap; /* Prevent wrapping */
+}
+
+.signin-container {
+  display: flex;
+  flex-direction: column; /* Arrange items vertically */
+  align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
+  text-align: center;
+  padding: 20px; /* Add spacing around the content */
+}
+
+.signin-title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px; /* Space between title and icons */
+}
+
+.icons-container {
+  display: flex; /* Arrange icons horizontally */
+  justify-content: center; /* Center icons */
+  gap: 15px; /* Space between icons */
+}
+
+.signin-icon {
+  font-size: 40px; /* Set icon size */
+  cursor: pointer; /* Change cursor on hover */
+  transition: transform 0.2s, color 0.2s; /* Add hover effects */
+}
+
+.signin-icon:hover {
+  transform: scale(1.1); /* Slightly enlarge the icon on hover */
+  color: #007bff; /* Change color on hover */
+}
+
+.remember-me-container {
+  display: flex; /* Arrange checkbox and label in a row */
+  align-items: center; /* Ensure vertical alignment */
+  margin: 10px 0; /* Add some margin */
+  text-align: left; /* Align content to the left */
+  align-self: flex-start; 
+}
+
+.remember-checkbox {
+  margin-right: 8px; 
+  margin-bottom: 6px;
+  width: 18px; /* Set checkbox size */
+  height: 18px; /* Set checkbox size */
+  
+}
+
+.remember-label {
+  font-size: 16px; /* Set text size */
+  cursor: pointer; /* Change cursor to pointer for better UX */
+  
+}
+
+
+
+/* .ext-container{
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  width: 100%; 
+  margin-top: 10px;
+} */
+
+
+
+
+/* .eye-icon {
+  position: absolute;
+  right: 10px; 
+  top: 65%;
+  transform: translateY(-50%); 
+  cursor: pointer;
+  color:white; 
+  
+}
+
+
+
+.eye-icon:hover {
+  color: red; 
+  
+} */
+
+
+
+/* admin signin */
+
+.admin-screen{
+  margin: 0;
+  font-family: 'Open Sans', sans-serif ;
+  background: linear-gradient(to top, #141335, #0c0d1a); 
+  color:white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.admin-container {
+  flex-direction: column;
+  text-align: center;
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  background: linear-gradient(to top, #141335, #0c0d1a);
+  color: white;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.welcome-section {
+  margin-bottom: 20px;
+}
+
+.welcome-section h1 {
+  font-size: 5rem;
+  margin: 0;
+  color: white;
+}
+
+.welcome-section p {
+  font-size: 1.5rem;
+  margin: 5px 0;
+}
+
+.admin-highlight {
+  font-weight: bold;
+  color: white;
+}
+
+/* Main Content Section */
+.admin-main-content {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-top: 50px;
+}
+
+/* Left Section: Form */
+.admin-form-container {
+  flex: 2;
+  padding: 2rem;
+  border-radius: 10px;
+}
+
+.admin-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  align-items: center; /* Ensures vertical alignment */
+}
+
+.admin-row input {
+  flex: 1;
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  background: white;
+  color: black;
+  width: 100%;
+  height: 50px;
+}
+
+input::placeholder {
+  color: #aaa;
+}
+
+/* Styling for Input with Button */
+.input-with-button {
+  position: relative;
+  width: 50%;
+}
+
+.input-with-button input {
+  flex: 1;
+  padding: 0.8rem;
+  padding-right: 6rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  background: white;
+  color: black;
+}
+
+.input-with-button input::placeholder {
+  color: #aaa;
+}
+
+.input-with-button .otp-btn {
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  transform: translateY(-50%);
+  background: skyblue;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9rem;
+}
+
+/* OTP and Verify Button Styles */
+.otp-button {
+  flex: 1;
+  max-width: 50%; /* Adjust the width of the OTP input as needed */
+  padding: 0.8rem;
+  font-size: 0.9rem;
+  border: none;
+  border-radius: 10px;
+  background: white;
+  color: black;
+}
+
+.verify-btn {
+  flex-shrink: 0;
+  padding: 0.8rem 1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 10px;
+  background: #28a745;
+  color: #fff;
+  cursor: pointer;
+  height: 50px;
+  white-space: nowrap;
+}
+
+.signup-btn {
+  background: #ff0000;
+  color: #fff;
+  width: 100%;
+  margin-top: 1rem;
+}
+
+.admin-image-section {
+  width: 40%;
+  display: flex;
+  justify-content: center;
+}
+
+.admin-image-section img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+.video-js {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures video covers the entire player */
+}

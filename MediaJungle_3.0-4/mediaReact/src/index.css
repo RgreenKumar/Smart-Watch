@@ -1,0 +1,192 @@
+/* index.css */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body, html {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+}
+.linear-bg{
+    background: linear-gradient(269.82deg, #07091c00 0.17%, #080a1ad6 99.87%);
+}
+input:focus,
+textarea:focus,
+select:focus {
+    outline: 0 !important;
+    box-shadow: none !important;
+}
+
+.hoveres {
+    @apply hidden;
+}
+
+.hovered:hover .hoveres {
+    @apply flex-colo;
+}
+
+.flex-colo {
+    @apply flex flex-col justify-center items-center;
+}
+
+.flex-rows {
+    @apply flex flex-row justify-center items-center;
+}
+
+.flex-btn {
+    @apply flex justify-between items-center;
+}
+
+.transitions {
+    @apply transition duration-300 ease-in;
+}
+
+.zIndex {
+    z-index: 1000;
+}
+/* Add this CSS to your component or global styles */
+
+/* Additional styles for slick arrow buttons */
+.slick-prev,
+.slick-next {
+  /* font-size: 28px; */
+  color: #fff;
+  background-color: #333;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.slick-prev:hover,
+.slick-next:hover {
+  background-color: #ff0000;
+  transform: scale(1.2);
+}
+/* Drawer */
+/*.drawer {
+overflow: visible;
+}
+.drawer .drawer-content-wrapper {
+width: 100%;
+}
+.drawer {
+position: fixed;
+z-index: 9999;
+transition: width 0s ease 0.3s, height 0s ease 0.3s,
+transform 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+}
+.drawer>\* {
+transition: transform 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86),
+opacity 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86),
+box-shadow 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+}
+.drawer.drawer-open {
+transition: transform 0.3s cubic-bezier(0.78, 0.14, 0.15, 0.86);
+}
+.drawer-bottom.drawer-open.no-mask {
+    bottom: 1px;
+    transform: translateY(1px);
+    }
+    .drawer.drawer-open .drawer-mask {
+    opacity: 0.3;
+    height: 100%;
+    transition: opacity 0.3s cubic-bezier (0.78, 0.14, 0.15, 0.86);
+    }
+    .drawer.drawer-open .drawer-handle-icon {
+    background: transparent;
+    }
+    .drawer.drawer-open .drawer-handle-icon:before {
+    transform: translateY (5px) rotate (45deg);
+    }
+    .drawer.drawer-open .drawer-handle-icon:after {
+    transform: translateY(-5px) rotate (-45deg);
+    }
+    @media (min-width: 480px){
+    .drawer .drawer-content-wrapper {
+    width: 420px;
+    }
+    }
+ */
+ .slider-container {
+    position: relative;
+    padding: 0 50px; /* Add some padding so the buttons don't overlap the images */
+  }
+  
+  .prev-button, .next-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    /* background-color: #333; */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    z-index: 2;
+  }
+  
+  .prev-button {
+    left: 0; /* Place "Previous" button on the far left */
+  }
+  
+  .next-button {
+    right: 0; /* Place "Next" button on the far right */
+  }
+  
+  .movie-card {
+    text-align: center;
+  }
+
+  /* App.css or your specific CSS file */
+audio {
+    display: none; /* Hide the default audio controls */
+}
+input[type="range"].audioProgressBarr {
+    -webkit-appearance: none; /* Remove default styling */
+    width: 100%; /* Full width */
+    background: white; /* Background color of the track */
+    border-radius: 5px; /* Rounded corners */
+    height: 8px; /* Height of the track */
+}
+
+
+/* Progress bar track */
+
+/* Progress fill */
+input[type="range"].audioProgressBarr::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Remove default thumb */
+    width: 16px; /* Width of the thumb */
+    height: 16px; /* Height of the thumb */
+    background: red; /* Red color for the thumb */
+    border-radius: 50%; /* Make it circular */
+}
+
+
+/* Optional: Change the color of the filled portion */
+input[type="range"].audioProgressBarr:before {
+    content: '';
+    position: absolute;
+    height: 8px; /* Match the track height */
+    background: red; /* Red color for the filled portion */
+    width: calc(var(--progress) * 1%); /* Width based on progress */
+    border-radius: 5px; /* Rounded corners */
+    z-index: 1; /* Make sure it’s above the track */
+}
+.custom-progress-bar {
+    background-color: rgb(245, 239, 239); /* Background color of the progress bar */
+    border-radius: 5px; /* Optional: rounded corners for the bar */
+    height: 4px; /* Set height for the progress bar */
+    margin: 0; /* Remove any margin */
+    padding: 0; /* Remove any padding */
+}
+
+/* To change the filled color of the ProgressBar to violet */
+.custom-progress-bar .progress-bar {
+    background-color: red; /* Violet color for the filled portion */
+    height: 100%; /* Fill the height of the progress bar */
+    /* width: 100%; */
+}
