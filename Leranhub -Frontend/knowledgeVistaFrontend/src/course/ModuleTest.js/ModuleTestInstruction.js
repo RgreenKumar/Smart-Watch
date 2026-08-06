@@ -1,0 +1,67 @@
+import React from 'react'
+import { Link } from 'react-router-dom'
+
+const ModuleTestInstruction = ({handleProceedClick,mtestName,noofQuestion}) => {
+  return (
+    <div className='card'>
+                  <div className="card-body">
+             <div className="row">
+             <div className="col-12">
+                     <div className='div3'>
+             
+                     <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+       <h4 style={{ textDecoration: "underline", margin: 0 }}>Test Instructions</h4>        
+     </div>
+     
+                        <div className='instruction'>
+                         <h2 style={{textAlign:"center"}}><i className="fa-solid fa-triangle-exclamation"></i></h2>
+                         <h3 style={{textAlign:"center"}}>Notice</h3>
+                         <p>
+                             Welcome for the online Module Test of <b>{mtestName}</b>. Please Read the Following Information Carefully before Proceeding 
+                         </p>
+                         <h5 className='font-weight-bold' > Instruction :</h5>
+                         <ul style={{ listStyleType: 'disc' }}>
+                             <li>Ensure you have a stable internet connection throughout the duration of the Test.</li>
+                             <li>Use a Desktop or Laptop with a compatiable browser (Google Chrome ,Mozila Firefox, Safari,or Microsoft Edge).</li>
+                             <li>Disable any pop-up blockers and ensure JavaScript is enabled in your Browser Settings</li>
+                         </ul>
+                         <h5 className='font-weight-bold' >Test Environment :</h5>
+                         <ul style={{ listStyleType: 'disc' }}>
+                             <li>Find a Quiet and Comfortable envronment to take the Test.</li>
+                             <li>Avoid distractions and interruptions during the Test duration.</li>
+                             <li>Make sure your Surroundings are well-lighted and your Screen is easily readable.</li>
+                         </ul >
+                         <h5 className='font-weight-bold'>test Format :</h5>
+                         <ul style={{ listStyleType: 'disc' }}>
+                             <li>The Test Consist of <b>{noofQuestion }</b> Multiple-choice Questions </li>
+                             <li>This Test allows <b>One</b> attempt only.</li>
+                             <li>Each Question carries one Mark </li>
+                             <li>Read the Question Carefully and select your Answer</li>
+                         </ul >
+                         <h5 className='font-weight-bold'>Submission :</h5>
+                         <ul style={{ listStyleType: 'disc' }}>
+                             <li>Once you have answered all the questions, click on the "Submit" button to submit your test</li>
+                             <li>you will not be able to make any changes after the test is submitted.</li>
+                         </ul>
+                          <p>By Proceeding ,you acknowledged that you have read and understand the instruction provided above</p>
+                          <h5 className='font-weight-bold' style={{textAlign:"center"}}>Good Luck !</h5>
+                        </div>
+                        <div className='atbtndiv' >
+                         <div>
+                         <Link to={"/user/ProgramCalender"} className='btn btn-secondary'>cancel</Link>
+                         </div><div>
+     
+                         </div>
+                         <div>
+                         <button onClick={handleProceedClick} className='btn btn-primary mr-3'>Proceed</button></div>
+                         </div>
+   
+                 </div>
+                 </div>
+                 </div>
+                 </div>
+                 </div>
+  )
+}
+
+export default ModuleTestInstruction
