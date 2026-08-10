@@ -1,0 +1,16 @@
+.image-upload-box {
+  position: relative;
+}
+
+.hover-overlay {
+  position: absolute;
+  margin:0 auto;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.image-upload-box:hover .hover-overlay {
+  opacity: 1;
+}

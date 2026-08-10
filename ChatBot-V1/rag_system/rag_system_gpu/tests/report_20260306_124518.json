@@ -1,0 +1,118 @@
+{
+  "timestamp": "2026-03-06T12:45:18.337255",
+  "total": 10,
+  "passed": 9,
+  "failed": 1,
+  "errors": 0,
+  "score_pct": 90.0,
+  "overall": "PASS ✅",
+  "categories": {
+    "price": {
+      "pass": 9,
+      "fail": 1,
+      "total": 10
+    }
+  },
+  "results": [
+    {
+      "id": 1,
+      "question": "What is the price of cashews?",
+      "answer": "The price of cashews is Rs.275.",
+      "category": "price",
+      "note": "Direct price lookup",
+      "status": "PASS",
+      "elapsed": 16.43,
+      "details": "OK"
+    },
+    {
+      "id": 2,
+      "question": "How much does badam cost?",
+      "answer": "Badam (Almonds) is priced at Rs.250 on sale, with an MRP of Rs.275, offering a 9% discount.",
+      "category": "price",
+      "note": "Direct price lookup - badam",
+      "status": "PASS",
+      "elapsed": 4.11,
+      "details": "OK"
+    },
+    {
+      "id": 3,
+      "question": "What is the price of kismish?",
+      "answer": "The price of kismish is Rs.75.",
+      "category": "price",
+      "note": "Highest discount product",
+      "status": "PASS",
+      "elapsed": 5.01,
+      "details": "OK"
+    },
+    {
+      "id": 4,
+      "question": "How much is honey?",
+      "answer": "Honey is priced at Rs.125 with an MRP of Rs.150, offering a 17% discount.",
+      "category": "price",
+      "note": "Honey price lookup",
+      "status": "PASS",
+      "elapsed": 6.58,
+      "details": "OK"
+    },
+    {
+      "id": 5,
+      "question": "What is the price of dates?",
+      "answer": "The price of dates is Rs.95.",
+      "category": "price",
+      "note": "Dates price lookup",
+      "status": "PASS",
+      "elapsed": 3.54,
+      "details": "OK"
+    },
+    {
+      "id": 6,
+      "question": "Pista price?",
+      "answer": "Pista (Pistachios) is priced at Rs.275 with an MRP of Rs.300, offering an 8% discount.",
+      "category": "price",
+      "note": "Short form question",
+      "status": "PASS",
+      "elapsed": 3.84,
+      "details": "OK"
+    },
+    {
+      "id": 7,
+      "question": "Walnuts cost?",
+      "answer": "Walnuts are priced at Rs.275 with an MRP of Rs.300, offering an 8% discount.",
+      "category": "price",
+      "note": "Very short question",
+      "status": "PASS",
+      "elapsed": 4.38,
+      "details": "OK"
+    },
+    {
+      "id": 8,
+      "question": "What is the MRP of apricot?",
+      "answer": "The MRP of apricot is Rs.300.",
+      "category": "price",
+      "note": "MRP vs sale price distinction",
+      "status": "PASS",
+      "elapsed": 3.69,
+      "details": "OK"
+    },
+    {
+      "id": 9,
+      "question": "How much does atthipalam cost?",
+      "answer": "Atthipalam (Dried Figs) costs Rs.275 on sale, with an MRP of Rs.300, offering an 8% discount.",
+      "category": "price",
+      "note": "Tamil product name",
+      "status": "PASS",
+      "elapsed": 3.91,
+      "details": "OK"
+    },
+    {
+      "id": 10,
+      "question": "What is black dates price?",
+      "answer": "I do not have that information.",
+      "category": "price",
+      "note": "Black dates price",
+      "status": "FAIL",
+      "elapsed": 4.37,
+      "details": "Missing keywords: ['275', '300', '8%']"
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "timestamp": "2026-03-06T12:40:04.139256",
+  "total": 10,
+  "passed": 10,
+  "failed": 0,
+  "errors": 0,
+  "score_pct": 100.0,
+  "overall": "PASS ✅",
+  "categories": {
+    "price": {
+      "pass": 10,
+      "fail": 0,
+      "total": 10
+    }
+  },
+  "results": [
+    {
+      "id": 1,
+      "question": "What is the price of cashews?",
+      "answer": "Rs.275",
+      "category": "price",
+      "note": "Direct price lookup",
+      "status": "PASS",
+      "elapsed": 3.81,
+      "details": "OK"
+    },
+    {
+      "id": 2,
+      "question": "How much does badam cost?",
+      "answer": "Badam (Almonds) costs Rs.250 on sale, with an MRP of Rs.275 and a 9% discount.",
+      "category": "price",
+      "note": "Direct price lookup - badam",
+      "status": "PASS",
+      "elapsed": 3.93,
+      "details": "OK"
+    },
+    {
+      "id": 3,
+      "question": "What is the price of kismish?",
+      "answer": "Rs.75",
+      "category": "price",
+      "note": "Highest discount product",
+      "status": "PASS",
+      "elapsed": 3.48,
+      "details": "OK"
+    },
+    {
+      "id": 4,
+      "question": "How much is honey?",
+      "answer": "Rs.125",
+      "category": "price",
+      "note": "Honey price lookup",
+      "status": "PASS",
+      "elapsed": 4.45,
+      "details": "OK"
+    },
+    {
+      "id": 5,
+      "question": "What is the price of dates?",
+      "answer": "Rs.95",
+      "category": "price",
+      "note": "Dates price lookup",
+      "status": "PASS",
+      "elapsed": 3.25,
+      "details": "OK"
+    },
+    {
+      "id": 6,
+      "question": "Pista price?",
+      "answer": "Rs.275",
+      "category": "price",
+      "note": "Short form question",
+      "status": "PASS",
+      "elapsed": 3.74,
+      "details": "OK"
+    },
+    {
+      "id": 7,
+      "question": "Walnuts cost?",
+      "answer": "Walnuts cost Rs.275 on sale, with an MRP of Rs.300 and an 8% discount.",
+      "category": "price",
+      "note": "Very short question",
+      "status": "PASS",
+      "elapsed": 3.94,
+      "details": "OK"
+    },
+    {
+      "id": 8,
+      "question": "What is the MRP of apricot?",
+      "answer": "Rs.300",
+      "category": "price",
+      "note": "MRP vs sale price distinction",
+      "status": "PASS",
+      "elapsed": 3.9,
+      "details": "OK"
+    },
+    {
+      "id": 9,
+      "question": "How much does atthipalam cost?",
+      "answer": "Atthipalam costs Rs.275.",
+      "category": "price",
+      "note": "Tamil product name",
+      "status": "PASS",
+      "elapsed": 3.68,
+      "details": "OK"
+    },
+    {
+      "id": 10,
+      "question": "What is black dates price?",
+      "answer": "Rs.275",
+      "category": "price",
+      "note": "Black dates price",
+      "status": "PASS",
+      "elapsed": 4.41,
+      "details": "OK"
+    }
+  ]
+}

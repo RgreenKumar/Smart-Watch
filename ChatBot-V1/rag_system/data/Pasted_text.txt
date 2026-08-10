@@ -1,0 +1,640 @@
+import 'dart:convert';
+
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../../core/theme/app_colors.dart';
+import '../../../core/theme/app_text_styles.dart';
+import '../../../core/utils/page_transition.dart';
+import '../../../core/widgets/chat_avatar.dart';
+import '../../../core/widgets/status_badge.dart';
+import '../../../core/widgets/shadowed_app_bar.dart';
+import '../models/chat_model.dart';
+import 'chat_detail_screen.dart';
+
+const String _base = 'http://localhost:8080';
+
+class ChatListScreen extends StatefulWidget {
+  const ChatListScreen({super.key});
+
+  @override
+  State<ChatListScreen> createState() => _ChatListScreenState();
+}
+
+class _ChatListScreenState extends State<ChatListScreen> {
+  final _searchCtrl = TextEditingController();
+
+  List<ChatModel> _all = [];
+  List<ChatModel> _filtered = [];
+  bool _loading = true;
+
+  bool _multiSelectMode = false;
+  final Set<String> _selected = {};
+
+  int _agentId = 0;
+  String _agentName = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadAndFetch();
+  }
+
+  @override
+  void dispose() {
+    _searchCtrl.dispose();
+    super.dispose();
+  }
+
+  Future<void> _loadAndFetch() async {
+    final prefs = await SharedPreferences.getInstance();
+    if (!mounted) return;
+
+    setState(() {
+      _agentId = prefs.getInt('userId') ?? 0;
+      _agentName = prefs.getString('name') ?? 'Agent';
+    });
+
+    await _fetchChats();
+  }
+
+  Future<void> _fetchChats() async {
+    if (!mounted) return;
+
+    setState(() => _loading = true);
+
+    try {
+      if (_agentId == 0) {
+        _useFallbackData();
+        return;
+      }
+
+      final res = await http.get(
+        Uri.parse('$_base/chat/sessions/visible?agentId=$_agentId'),
+      );
+
+      if (!mounted) return;
+
+      if (res.statusCode == 200) {
+        final decoded = jsonDecode(res.body);
+
+        if (decoded is List) {
+          final chats = decoded.map<ChatModel>((e) {
+            final map = e as Map<String, dynamic>;
+            return _mapToChatModel(map);
+          }).toList();
+
+          setState(() {
+            _all = chats;
+            _filtered = _applySearch(_searchCtrl.text, _all);
+            _loading = false;
+            _selected.removeWhere((id) => !_all.any((c) => c.id == id));
+          });
+        } else {
+          _useFallbackData();
+        }
+      } else {
+        _useFallbackData();
+      }
+    } catch (e) {
+      debugPrint('[ChatListScreen] fetch error: $e');
+      if (mounted) _useFallbackData();
+    }
+  }
+
+  void _useFallbackData() {
+    final fallback = List<ChatModel>.from(ChatMockData.chats);
+    setState(() {
+      _all = fallback;
+      _filtered = _applySearch(_searchCtrl.text, _all);
+      _loading = false;
+      _selected.removeWhere((id) => !_all.any((c) => c.id == id));
+    });
+  }
+
+  ChatModel _mapToChatModel(Map<String, dynamic> e) {
+    final rawStatus = e['status'];
+
+    final bool isOpen = rawStatus is bool
+        ? !rawStatus
+        : rawStatus.toString().toLowerCase() != 'closed';
+
+    final sessionId = (e['sessionId'] ?? e['id'] ?? '').toString();
+
+    return ChatModel(
+      id: sessionId,
+      visitorName: (e['username'] ?? e['visitorName'] ?? 'Visitor').toString(),
+      lastMessage: (e['message'] ?? '').toString(),
+      agentName: (e['agentName'] ?? 'Agent').toString(),
+      time: _formatTime(e['timestamp']),
+      status: isOpen ? 'Open' : 'Closed',
+      //isOpen: isOpen,
+    );
+  }
+
+  String _formatTime(dynamic raw) {
+    if (raw == null) return '';
+
+    if (raw is String) {
+      return raw;
+    }
+
+    if (raw is int) {
+      final dt = DateTime.fromMillisecondsSinceEpoch(raw);
+      final hour = dt.hour.toString().padLeft(2, '0');
+      final minute = dt.minute.toString().padLeft(2, '0');
+      return '$hour:$minute';
+    }
+
+    return raw.toString();
+  }
+
+  List<ChatModel> _applySearch(String q, List<ChatModel> source) {
+    final query = q.trim().toLowerCase();
+    if (query.isEmpty) return List.from(source);
+
+    return source
+        .where(
+          (c) =>
+              c.visitorName.toLowerCase().contains(query) ||
+              c.lastMessage.toLowerCase().contains(query) ||
+              c.agentName.toLowerCase().contains(query),
+        )
+        .toList();
+  }
+
+  void _search(String q) {
+    setState(() {
+      _filtered = _applySearch(q, _all);
+    });
+  }
+
+  void _toggleSelect(String id) {
+    setState(() {
+      if (_selected.contains(id)) {
+        _selected.remove(id);
+      } else {
+        _selected.add(id);
+      }
+    });
+  }
+
+  void _openChat(ChatModel chat) {
+    Navigator.push(
+      context,
+      DirectionalPageRoute(
+        page: ChatDetailScreen(chat: chat),
+        direction: SlideDirection.left,
+      ),
+    ).then((_) {
+      if (mounted) _fetchChats();
+    });
+  }
+
+  Widget _buildAppBar() {
+    return ShadowedAppBar(
+      height: 148,
+      children: [
+        AppBar(
+          toolbarHeight: 80,
+          backgroundColor: AppColors.scaffoldBg,
+          elevation: 0,
+          scrolledUnderElevation: 0,
+          titleSpacing: 16,
+          title: Row(
+            children: [
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(
+                    Icons.chat_bubble_rounded,
+                    color: AppColors.accent,
+                    size: 34,
+                  ),
+                  const SizedBox(width: 2),
+                  RichText(
+                    text: const TextSpan(
+                      children: [
+                        TextSpan(
+                          text: 'C',
+                          style: TextStyle(
+                            color: AppColors.accent,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                        TextSpan(
+                          text: 'hat',
+                          style: TextStyle(
+                            color: AppColors.textPrimary,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              const Spacer(),
+              Text(
+                'Meganar Tech',
+                style: AppTextStyles.heading3.copyWith(
+                  decoration: TextDecoration.underline,
+                  fontSize: 17,
+                ),
+              ),
+              const Spacer(),
+              CircleAvatar(
+                radius: 18,
+                backgroundColor: AppColors.primary,
+                child: Text(
+                  _agentName.isNotEmpty ? _agentName[0].toUpperCase() : 'M',
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontWeight: FontWeight.w700,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const Divider(height: 1),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16, 10, 16, 10),
+          child: Row(
+            children: [
+              Expanded(
+                child: Container(
+                  height: 42,
+                  decoration: BoxDecoration(
+                    color: AppColors.surfaceBg,
+                    borderRadius: BorderRadius.circular(25),
+                  ),
+                  child: TextField(
+                    controller: _searchCtrl,
+                    onChanged: _search,
+                    decoration: const InputDecoration(
+                      hintText: 'Search...',
+                      hintStyle: TextStyle(color: AppColors.textHint),
+                      border: InputBorder.none,
+                      prefixIcon: Icon(
+                        Icons.search,
+                        color: AppColors.textSecondary,
+                        size: 22,
+                      ),
+                      isDense: true,
+                      contentPadding: EdgeInsets.symmetric(vertical: 10),
+                    ),
+                  ),
+                ),
+              ),
+              const SizedBox(width: 20),
+              GestureDetector(
+                onTap: _showFilterSheet,
+                child: const Icon(
+                  Icons.filter_list_rounded,
+                  size: 26,
+                  color: AppColors.textSecondary,
+                ),
+              ),
+              const SizedBox(width: 20),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    _multiSelectMode = !_multiSelectMode;
+                    if (!_multiSelectMode) _selected.clear();
+                  });
+                },
+                child: Container(
+                  width: 32,
+                  height: 32,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppColors.divider, width: 1.5),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Icon(
+                    _multiSelectMode
+                        ? Icons.check_box_rounded
+                        : Icons.check_box_outline_blank_rounded,
+                    size: 20,
+                    color: _multiSelectMode
+                        ? AppColors.primary
+                        : AppColors.textSecondary,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _showFilterSheet() {
+    showModalBottomSheet(
+      context: context,
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      builder: (_) => _FilterSheet(
+        onFilter: (status) {
+          setState(() {
+            if (status == 'All') {
+              _filtered = _applySearch(_searchCtrl.text, _all);
+            } else {
+              final base = _applySearch(_searchCtrl.text, _all);
+              _filtered = base
+                  .where((c) => c.status.toLowerCase() == status.toLowerCase())
+                  .toList();
+            }
+          });
+          Navigator.pop(context);
+        },
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: AppColors.scaffoldBg,
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(148),
+        child: _buildAppBar(),
+      ),
+      body: Column(
+        children: [
+          if (_multiSelectMode && _selected.isNotEmpty)
+            _MultiSelectBar(
+              selectedCount: _selected.length,
+              onClose: () => setState(() {
+                _selected.clear();
+                _multiSelectMode = false;
+              }),
+            ),
+          Expanded(
+            child: _loading
+                ? const Center(child: CircularProgressIndicator())
+                : _filtered.isEmpty
+                    ? _EmptyState(query: _searchCtrl.text)
+                    : RefreshIndicator(
+                        onRefresh: _fetchChats,
+                        child: ListView.separated(
+                          padding: const EdgeInsets.only(bottom: 110),
+                          physics: const AlwaysScrollableScrollPhysics(),
+                          itemCount: _filtered.length,
+                          separatorBuilder: (_, __) =>
+                              const Divider(height: 1, indent: 1),
+                          itemBuilder: (_, i) {
+                            final chat = _filtered[i];
+                            final isSelected = _selected.contains(chat.id);
+
+                            return _ChatTile(
+                              chat: chat,
+                              isSelected: isSelected,
+                              multiSelectMode: _multiSelectMode,
+                              onTap: () {
+                                if (_multiSelectMode) {
+                                  _toggleSelect(chat.id);
+                                } else {
+                                  _openChat(chat);
+                                }
+                              },
+                              onLongPress: () {
+                                setState(() {
+                                  _multiSelectMode = true;
+                                  _selected.add(chat.id);
+                                });
+                              },
+                            );
+                          },
+                        ),
+                      ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ChatTile extends StatelessWidget {
+  final ChatModel chat;
+  final bool isSelected;
+  final bool multiSelectMode;
+  final VoidCallback onTap;
+  final VoidCallback onLongPress;
+
+  const _ChatTile({
+    required this.chat,
+    required this.isSelected,
+    required this.multiSelectMode,
+    required this.onTap,
+    required this.onLongPress,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      onLongPress: onLongPress,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 180),
+        color: isSelected
+            ? AppColors.primary.withOpacity(0.08)
+            : chat.isOpen
+                ? AppColors.chatOpenBg
+                : AppColors.scaffoldBg,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (multiSelectMode) ...[
+              Padding(
+                padding: const EdgeInsets.only(right: 10, top: 4),
+                child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 180),
+                  width: 22,
+                  height: 22,
+                  decoration: BoxDecoration(
+                    color: isSelected ? AppColors.primary : Colors.transparent,
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: isSelected ? AppColors.primary : AppColors.divider,
+                      width: 2,
+                    ),
+                  ),
+                  child: isSelected
+                      ? const Icon(Icons.check, color: Colors.white, size: 14)
+                      : null,
+                ),
+              ),
+            ],
+            ChatAvatar(
+              label: chat.visitorName,
+              radius: 22,
+              hasOnlineRing: chat.isOpen,
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Text(
+                          chat.visitorName,
+                          style: AppTextStyles.chatName,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      StatusBadge.fromString(chat.status),
+                    ],
+                  ),
+                  const SizedBox(height: 3),
+                  Text(
+                    chat.lastMessage,
+                    style: AppTextStyles.bodySmall,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                  const SizedBox(height: 6),
+                  Row(
+                    children: [
+                      MiniAvatar(label: 'T'),
+                      const SizedBox(width: 6),
+                      Expanded(
+                        child: Text(
+                          chat.agentName,
+                          style: AppTextStyles.agentName,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Text(chat.time, style: AppTextStyles.caption),
+                      const SizedBox(width: 6),
+                      const Icon(
+                        Icons.calendar_today_outlined,
+                        size: 13,
+                        color: AppColors.textSecondary,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _FilterSheet extends StatelessWidget {
+  final void Function(String) onFilter;
+  const _FilterSheet({required this.onFilter});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(24),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Filter Chats', style: AppTextStyles.heading3),
+          const SizedBox(height: 16),
+          ...['All', 'Open', 'Closed'].map(
+            (s) => ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: Icon(
+                s == 'All'
+                    ? Icons.all_inbox_rounded
+                    : s == 'Open'
+                        ? Icons.lock_open_rounded
+                        : Icons.lock_rounded,
+                color: AppColors.primary,
+              ),
+              title: Text(s, style: AppTextStyles.bodyLarge),
+              onTap: () => onFilter(s),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+          ),
+          const SizedBox(height: 8),
+        ],
+      ),
+    );
+  }
+}
+
+class _MultiSelectBar extends StatelessWidget {
+  final int selectedCount;
+  final VoidCallback onClose;
+
+  const _MultiSelectBar({
+    required this.selectedCount,
+    required this.onClose,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: AppColors.primary,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+      child: Row(
+        children: [
+          Text(
+            '$selectedCount selected',
+            style: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const Spacer(),
+          IconButton(
+            icon: const Icon(Icons.delete_outline, color: Colors.white),
+            onPressed: () {},
+            tooltip: 'Delete',
+          ),
+          IconButton(
+            icon: const Icon(Icons.close, color: Colors.white),
+            onPressed: onClose,
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _EmptyState extends StatelessWidget {
+  final String query;
+  const _EmptyState({required this.query});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            Icons.chat_bubble_outline_rounded,
+            size: 64,
+            color: AppColors.divider,
+          ),
+          const SizedBox(height: 16),
+          Text(
+            query.isEmpty ? 'No chats yet' : 'No results for "$query"',
+            style: AppTextStyles.bodyMedium
+                .copyWith(color: AppColors.textSecondary),
+          ),
+        ],
+      ),
+    );
+  }
+}

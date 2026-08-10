@@ -1,0 +1,15 @@
+FrontEnd_Url=http://localhost:3000
+Admin_Url=http://localhost:3000
+BackEnd_Url=http://localhost:8080
+RAG_URL=http://localhost:5000
+DB_HOST=localhost
+DB_PORT=5432
+DB_NAME=
+DB_USERNAME=
+DB_PASSWORD=
+JWT_SECRET=yourSecretKeyStringWithAtLeast256BitsLength
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=587
+MAIL_USERNAME=
+MAIL_PASSWORD=
+SERVER_PORT=8080

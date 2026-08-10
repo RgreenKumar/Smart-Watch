@@ -1,0 +1,1295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>RAG Admin · Mobile</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:       #05062D;
+  --navy-2:     #0A0C45;
+  --purple-d:   #3B0D80;
+  --purple:     #5C1AA8;
+  --violet:     #A44FE8;
+  --violet-lt:  #C580FF;
+  --gold:       #FFB800;
+  --gold-dim:   #3A2A00;
+  --gold-glow:  #FFB80044;
+  --red:        #FF4D6A;
+  --red-dim:    #3A0A12;
+  --blue:       #58A6FF;
+  --text:       #EDE8FF;
+  --muted:      #7A6F9E;
+  --border:     #1E1550;
+  --border2:    #2A1D70;
+  --surface:    #0D0E3A;
+  --surface2:   #130F4A;
+  --sans:       'Space Grotesk', sans-serif;
+  --mono:       'JetBrains Mono', monospace;
+  --tab-h:      68px;
+  --header-h:   56px;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+
+body {
+  background: var(--navy);
+  color: var(--text);
+  font-family: var(--sans);
+  height: 100dvh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* ── Animated bg ── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 10%, #5C1AA820 0%, transparent 60%),
+    radial-gradient(ellipse 40% 30% at 80% 80%, #FFB80010 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ── Header ── */
+header {
+  position: relative;
+  z-index: 50;
+  height: var(--header-h);
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  flex-shrink: 0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo-icon {
+  width: 34px; height: 34px;
+  background: linear-gradient(135deg, var(--purple), var(--violet));
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px;
+  box-shadow: 0 0 14px var(--violet)40;
+}
+
+.logo-text {
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.01em;
+  background: linear-gradient(90deg, var(--violet-lt), var(--gold));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.server-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 5px 12px;
+  font-size: 11px;
+  font-family: var(--mono);
+  color: var(--muted);
+}
+
+.dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--muted);
+  transition: all 0.3s;
+}
+.dot.online  { background: #3DDB7A; box-shadow: 0 0 6px #3DDB7A; }
+.dot.offline { background: var(--red); box-shadow: 0 0 6px var(--red); }
+
+/* ── Scroll area ── */
+.scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 20px 16px calc(var(--tab-h) + 12px);
+  position: relative;
+  z-index: 1;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scroll-area::-webkit-scrollbar { display: none; }
+
+/* ── Pages ── */
+.page { display: none; flex-direction: column; gap: 16px; animation: fadeUp 0.25s ease; }
+.page.active { display: flex; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Section Header ── */
+.section-header { margin-bottom: 4px; }
+.section-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.section-sub {
+  font-size: 12px;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* ── Cards ── */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--violet)40, transparent);
+}
+
+.card-label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  font-family: var(--mono);
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+.info-row:last-child { border-bottom: none; }
+.info-key { color: var(--muted); font-family: var(--mono); font-size: 12px; }
+.info-val { color: var(--text); font-weight: 500; text-align: right; max-width: 60%; word-break: break-all; }
+
+/* ── Mode Toggle ── */
+.mode-toggle { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+
+.mode-option {
+  border: 2px solid var(--border2);
+  border-radius: 12px;
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.mode-option.selected {
+  border-color: var(--violet);
+  background: #5C1AA815;
+}
+
+.mode-option input[type=radio] { position: absolute; opacity: 0; }
+
+.mode-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.mode-option.selected .mode-name { color: var(--violet-lt); }
+
+.mode-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.mode-badge {
+  font-size: 9px;
+  padding: 2px 7px;
+  border-radius: 4px;
+  font-family: var(--mono);
+  font-weight: 700;
+}
+.badge-safe { background: #0D3018; color: #3DDB7A; }
+.badge-warn { background: var(--gold-dim); color: var(--gold); }
+
+/* ── LLM Backend Toggle ── */
+.backend-toggle { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+
+.backend-option {
+  border: 2px solid var(--border2);
+  border-radius: 12px;
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.backend-option.selected {
+  border-color: var(--violet);
+  background: #5C1AA815;
+}
+
+.backend-option input[type=radio] { position: absolute; opacity: 0; }
+
+.backend-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.backend-option.selected .backend-name { color: var(--violet-lt); }
+
+.backend-desc {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ── Upload Zone ── */
+.upload-zone {
+  border: 2px dashed var(--border2);
+  border-radius: 14px;
+  padding: 36px 16px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  position: relative;
+}
+
+.upload-zone:hover,
+.upload-zone.dragover {
+  border-color: var(--violet);
+  background: #5C1AA810;
+}
+
+.upload-zone input[type=file] {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+  width: 100%; height: 100%;
+}
+
+.upload-icon { font-size: 36px; margin-bottom: 10px; }
+.upload-title { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 5px; }
+.upload-sub   { font-size: 12px; color: var(--muted); margin-bottom: 12px; }
+
+.file-types { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
+.file-tag {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-size: 10px;
+  font-family: var(--mono);
+  color: var(--muted);
+}
+
+/* ── File Queue ── */
+.file-queue { display: flex; flex-direction: column; gap: 8px; max-height: 200px; overflow-y: auto; }
+.file-queue::-webkit-scrollbar { display: none; }
+
+.file-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-size: 12px;
+}
+
+.file-item-icon { font-size: 18px; flex-shrink: 0; }
+.file-item-info { flex: 1; overflow: hidden; }
+.file-item-name {
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: var(--mono);
+  font-size: 11px;
+}
+.file-item-size { color: var(--muted); font-size: 10px; margin-top: 2px; }
+
+.file-item-status {
+  font-size: 10px;
+  font-family: var(--mono);
+  padding: 2px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.status-ready   { background: var(--border); color: var(--muted); }
+.status-success { background: #0D3018; color: #3DDB7A; }
+.status-error   { background: var(--red-dim); color: var(--red); }
+.status-loading { background: #0C1E3A; color: var(--blue); }
+
+.file-remove {
+  cursor: pointer;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1;
+  flex-shrink: 0;
+  padding: 4px;
+}
+.file-remove:active { color: var(--red); }
+
+/* ── Buttons ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 20px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: all 0.15s;
+  font-family: var(--sans);
+  width: 100%;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--purple), var(--violet));
+  color: #fff;
+  box-shadow: 0 4px 16px var(--violet)40;
+}
+.btn-primary:active { transform: scale(0.97); }
+.btn-primary:disabled { opacity: 0.4; box-shadow: none; }
+
+.btn-gold {
+  background: linear-gradient(135deg, #E8A000, var(--gold));
+  color: #0A0005;
+  font-weight: 700;
+  box-shadow: 0 4px 16px var(--gold)40;
+}
+.btn-gold:active { transform: scale(0.97); }
+.btn-gold:disabled { opacity: 0.4; box-shadow: none; }
+
+.btn-secondary {
+  background: var(--surface2);
+  color: var(--text);
+  border: 1px solid var(--border2);
+}
+.btn-secondary:active { background: var(--border); }
+
+.btn-danger {
+  background: transparent;
+  color: var(--red);
+  border: 1px solid var(--red)80;
+}
+.btn-danger:active { background: var(--red-dim); }
+
+.btn-sm {
+  padding: 8px 14px;
+  font-size: 12px;
+  border-radius: 8px;
+  width: auto;
+}
+
+.btn-row { display: flex; gap: 10px; }
+.btn-row .btn { flex: 1; }
+
+/* ── Progress ── */
+.progress-wrap { display: none; flex-direction: column; gap: 8px; margin-bottom: 14px; }
+.progress-wrap.show { display: flex; }
+
+.progress-bar {
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--purple), var(--violet));
+  border-radius: 2px;
+}
+
+.progress-fill.indeterminate {
+  width: 40% !important;
+  animation: progress-slide 1.2s ease-in-out infinite;
+}
+
+@keyframes progress-slide {
+  0%   { transform: translateX(-150%); }
+  100% { transform: translateX(350%); }
+}
+
+.progress-text {
+  font-size: 11px;
+  color: var(--muted);
+  font-family: var(--mono);
+}
+
+/* ── Alert ── */
+.alert {
+  display: none;
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-size: 13px;
+  gap: 10px;
+  align-items: flex-start;
+  border-left: 3px solid;
+  line-height: 1.5;
+}
+.alert.show { display: flex; }
+.alert-success { background: #0D301808; border-color: #3DDB7A; color: #3DDB7A; }
+.alert-error   { background: #3A0A1208; border-color: var(--red);    color: var(--red); }
+.alert-warn    { background: #3A2A0008; border-color: var(--gold);   color: var(--gold); }
+.alert-info    { background: #0C1E3A08; border-color: var(--blue);   color: var(--blue); }
+
+/* ── Table ── */
+.doc-list { display: flex; flex-direction: column; gap: 8px; }
+
+.doc-item {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: background 0.15s;
+}
+
+.doc-item:active { background: var(--border); }
+
+.doc-icon { font-size: 22px; flex-shrink: 0; }
+
+.doc-info { flex: 1; overflow: hidden; }
+.doc-name {
+  font-size: 13px;
+  font-family: var(--mono);
+  color: var(--text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+}
+.doc-chunks {
+  font-size: 11px;
+  color: var(--violet);
+  margin-top: 3px;
+}
+
+.doc-del {
+  background: transparent;
+  color: var(--muted);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 16px;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.15s;
+}
+.doc-del:active { background: var(--red-dim); color: var(--red); border-color: var(--red)40; }
+
+/* ── Settings ── */
+.setting-row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.setting-label {
+  font-size: 12px;
+  color: var(--muted);
+  font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+input[type=text] {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  color: var(--text);
+  padding: 12px 14px;
+  border-radius: 10px;
+  font-family: var(--mono);
+  font-size: 13px;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.15s;
+}
+input[type=text]:focus { border-color: var(--violet); }
+
+/* ── Danger Zone ── */
+.danger-zone {
+  border: 1px solid var(--red)30;
+  border-radius: 14px;
+  padding: 18px;
+  background: #3A0A1208;
+}
+
+.danger-title {
+  color: var(--red);
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.danger-desc {
+  font-size: 12px;
+  color: var(--muted);
+  margin-bottom: 16px;
+  line-height: 1.6;
+}
+
+/* ── Bottom Nav ── */
+.bottom-nav {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  height: var(--tab-h);
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  display: flex;
+  z-index: 100;
+  padding-bottom: env(safe-area-inset-bottom, 0);
+}
+
+.tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  cursor: pointer;
+  color: var(--muted);
+  transition: color 0.2s;
+  position: relative;
+  padding-top: 8px;
+  user-select: none;
+}
+
+.tab.active { color: var(--violet-lt); }
+
+.tab-icon {
+  font-size: 20px;
+  line-height: 1;
+  transition: transform 0.2s;
+}
+
+.tab.active .tab-icon { transform: scale(1.15); }
+
+.tab-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.tab::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--purple), var(--violet));
+  border-radius: 0 0 2px 2px;
+  transition: width 0.25s;
+}
+
+.tab.active::before { width: 40px; }
+
+/* ── Overlay / Dialog ── */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #000000CC;
+  z-index: 1000;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 0;
+}
+.overlay.show { display: flex; }
+
+.dialog {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 24px 24px 0 0;
+  padding: 24px 24px calc(24px + env(safe-area-inset-bottom, 0));
+  width: 100%;
+  animation: sheet-up 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes sheet-up {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+.dialog-handle {
+  width: 40px; height: 4px;
+  background: var(--border2);
+  border-radius: 2px;
+  margin: 0 auto 20px;
+}
+
+.dialog-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--red);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.dialog-body {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+.dialog-actions { display: flex; flex-direction: column; gap: 10px; }
+
+/* ── Quick link chips ── */
+.chips { display: flex; gap: 8px; flex-wrap: wrap; }
+.chip {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 20px;
+  padding: 7px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.15s;
+}
+.chip:active { background: var(--border); border-color: var(--violet); }
+
+/* ── Queue header ── */
+.queue-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.queue-count {
+  font-size: 11px;
+  color: var(--muted);
+  font-family: var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+  <div class="logo">
+    <div class="logo-icon">🤖</div>
+    <span class="logo-text">RAG Admin</span>
+  </div>
+  <div class="server-pill">
+    <div class="dot" id="serverDot"></div>
+    <span id="serverStatusText">Checking</span>
+  </div>
+</header>
+
+<!-- Scroll Content -->
+<div class="scroll-area">
+
+  <!-- ══ UPLOAD ══ -->
+  <div class="page active" id="page-upload">
+    <div class="section-header">
+      <div class="section-title">📤 Upload Docs</div>
+      <div class="section-sub">Add new knowledge to the RAG store</div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">🔀 Ingest Mode</div>
+      <div class="mode-toggle">
+        <label class="mode-option selected" id="modeIngestLabel" onclick="selectMode('ingest')">
+          <input type="radio" name="ingestMode" value="ingest" checked>
+          <div class="mode-name">
+            ➕ Ingest Only
+            <span class="mode-badge badge-safe">SAFE</span>
+          </div>
+          <div class="mode-desc">Adds chunks to existing store. Old documents are <strong style="color:var(--text)">kept</strong>. Best for incremental updates.</div>
+        </label>
+        <label class="mode-option" id="modeResetLabel" onclick="selectMode('reset')">
+          <input type="radio" name="ingestMode" value="reset">
+          <div class="mode-name">
+            🔄 Ingest + Reset
+            <span class="mode-badge badge-warn">WIPES DATA</span>
+          </div>
+          <div class="mode-desc">Wipes <strong style="color:var(--red)">ALL existing chunks</strong> first, then ingests fresh. Use only for full rewrites.</div>
+        </label>
+      </div>
+      <div class="alert alert-info show" id="modeAdvice">
+        <span>💡</span>
+        <span id="modeAdviceText"><strong>Safe choice.</strong> New chunks will be ADDED to existing data.</span>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">📁 Select Files</div>
+      <div class="upload-zone" id="uploadZone">
+        <input type="file" id="fileInput" multiple accept=".txt,.pdf,.docx,.csv,.xlsx,.json" onchange="handleFiles(this.files)">
+        <div class="upload-icon">📂</div>
+        <div class="upload-title">Tap to browse files</div>
+        <div class="upload-sub">Files indexed to ChromaDB vector store</div>
+        <div class="file-types">
+          <span class="file-tag">.txt</span>
+          <span class="file-tag">.pdf</span>
+          <span class="file-tag">.docx</span>
+          <span class="file-tag">.csv</span>
+          <span class="file-tag">.xlsx</span>
+          <span class="file-tag">.json</span>
+        </div>
+      </div>
+
+      <div id="fileQueueWrap" style="display:none; margin-top:14px;">
+        <div class="queue-header">
+          <div class="queue-count">Queue · <span id="queueCount">0</span> files</div>
+          <button class="btn btn-secondary btn-sm" onclick="clearQueue()">Clear</button>
+        </div>
+        <div class="file-queue" id="fileQueue"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">🚀 Run Ingestion</div>
+
+      <div class="progress-wrap" id="progressWrap">
+        <div class="progress-text" id="progressText">Preparing...</div>
+        <div class="progress-bar">
+          <div class="progress-fill indeterminate" id="progressFill"></div>
+        </div>
+      </div>
+
+      <div class="alert" id="ingestAlert" style="margin-bottom:14px;"></div>
+
+      <div class="btn-row">
+        <button class="btn btn-gold" onclick="runIngest()" id="ingestBtn" disabled>
+          ⚡ Start Ingestion
+        </button>
+      </div>
+      <div style="margin-top:12px; font-size:11px; color:var(--muted); line-height:1.8; font-family:var(--mono);" id="ingestSummary"></div>
+    </div>
+  </div>
+
+  <!-- ══ DOCUMENTS ══ -->
+  <div class="page" id="page-documents">
+    <div class="section-header" style="display:flex; align-items:center; justify-content:space-between;">
+      <div>
+        <div class="section-title">📁 Documents</div>
+        <div class="section-sub">Indexed in vector store</div>
+      </div>
+      <button class="btn btn-secondary btn-sm" onclick="loadDocuments()">🔄 Refresh</button>
+    </div>
+
+    <div class="alert" id="docsAlert"></div>
+
+    <div class="doc-list" id="docList">
+      <div style="color:var(--muted); text-align:center; padding:32px 0; font-size:13px;">Loading...</div>
+    </div>
+  </div>
+
+
+  <!-- ══ SETTINGS ══ -->
+  <div class="page" id="page-settings">
+    <div class="section-header">
+      <div class="section-title">⚙️ Settings</div>
+      <div class="section-sub">Admin controls for model credentials and vector store management</div>
+    </div>
+
+    <div class="card">
+      <div class="card-label">🤖 LLM Backend</div>
+      <div class="backend-toggle">
+        <label class="backend-option" id="backendLocalLabel" onclick="selectBackend('local')">
+          <input type="radio" name="llmBackend" value="local">
+          <div class="backend-name">🖥️ Local LLM <span class="mode-badge badge-safe">LOCAL</span></div>
+          <div class="backend-desc">Uses the local GGUF model configured in <code>.env</code>.</div>
+        </label>
+
+        <label class="backend-option selected" id="backendOnlineLabel" onclick="selectBackend('openrouter')">
+          <input type="radio" name="llmBackend" value="openrouter" checked>
+          <div class="backend-name">☁️ Online LLM <span class="mode-badge badge-warn">CLOUD</span></div>
+          <div class="backend-desc">Uses OpenRouter with the API key and model stored in <code>.env</code>.</div>
+        </label>
+
+        <label class="backend-option" id="backendAutoLabel" onclick="selectBackend('auto')">
+          <input type="radio" name="llmBackend" value="auto">
+          <div class="backend-name">🔁 Auto Switch <span class="mode-badge badge-safe">AUTO</span></div>
+          <div class="backend-desc">Tries local first, then falls back to online if the local model is unavailable.</div>
+        </label>
+      </div>
+
+      <div class="alert alert-info show" id="backendAdvice" style="margin-bottom:14px;">
+        <span>💡</span>
+        <span id="backendAdviceText"><strong>Online mode.</strong> OpenRouter will be used with the credentials below.</span>
+      </div>
+
+      <div class="setting-row" style="margin-bottom:14px;">
+        <div class="setting-label">API Key</div>
+        <input type="password" id="apiKey" placeholder="sk-...">
+      </div>
+      <div class="setting-row" style="margin-bottom:14px;">
+        <div class="setting-label">Model</div>
+        <input type="text" id="modelName" placeholder="mistralai/mixtral-8x7b-instruct">
+      </div>
+      <div class="alert" id="settingsAlert" style="margin-bottom:14px;"></div>
+      <button class="btn btn-primary" onclick="saveAdminSettings()">Save Admin Settings</button>
+      <div style="margin-top:10px; font-size:11px; color:var(--muted); line-height:1.6; font-family:var(--mono);">
+        Saving updates <code>LLM_BACKEND</code>, <code>OPENROUTER_API_KEY</code>, and <code>OPENROUTER_MODEL</code> in <code>.env</code>.
+      </div>
+    </div>
+
+    <div class="danger-zone">
+      <div class="danger-title">⚠️ Danger Zone</div>
+      <div class="danger-desc">
+        Resetting permanently deletes <strong>all indexed chunks</strong> from ChromaDB. The chatbot will have no knowledge until you re-ingest documents. This <strong>cannot be undone</strong>.
+      </div>
+      <button class="btn btn-danger" onclick="showResetDialog()">🗑 Reset Vector Store</button>
+    </div>
+  </div>
+
+  </div>
+
+</div><!-- /scroll-area -->
+
+<!-- Bottom Nav -->
+<nav class="bottom-nav">
+  <div class="tab active" onclick="showPage('upload', this)">
+    <div class="tab-icon">📤</div>
+    <div class="tab-label">Upload</div>
+  </div>
+  <div class="tab" onclick="showPage('documents', this)">
+    <div class="tab-icon">📁</div>
+    <div class="tab-label">Docs</div>
+  </div>
+  <div class="tab" onclick="showPage('settings', this)">
+    <div class="tab-icon">⚙️</div>
+    <div class="tab-label">Settings</div>
+  </div>
+</nav>
+
+<!-- Reset Confirm Bottom Sheet -->
+<div class="overlay" id="resetOverlay" onclick="handleOverlayClick(event)">
+  <div class="dialog">
+    <div class="dialog-handle"></div>
+    <div class="dialog-title">⚠️ Confirm Reset</div>
+    <div class="dialog-body">
+      This will permanently delete <strong style="color:var(--text)">ALL indexed chunks</strong> from the vector store.<br><br>
+      The chatbot will return <em>"I do not have that information"</em> for all questions until you re-ingest documents.<br><br>
+      Are you absolutely sure?
+    </div>
+    <div class="dialog-actions">
+      <button class="btn btn-danger" onclick="confirmReset()">Yes, Reset Everything</button>
+      <button class="btn btn-secondary" onclick="hideResetDialog()">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── Config ────────────────────────────────────────────────────────────────────
+let API_URL = localStorage.getItem('ragApiUrl') || 'http://127.0.0.1:5000';
+let ADMIN_API_KEY = localStorage.getItem('ragApiKey') || '';
+let ADMIN_MODEL = localStorage.getItem('ragModel') || '';
+
+document.addEventListener('DOMContentLoaded', () => {
+  loadAdminSettings();
+  testConnection();
+  loadDocuments();
+});
+
+
+function getHost() { return location.hostname || 'localhost'; }
+
+let selectedBackend = localStorage.getItem('ragLlmBackend') || 'openrouter';
+
+function selectBackend(backend) {
+  selectedBackend = backend;
+  localStorage.setItem('ragLlmBackend', backend);
+
+  document.getElementById('backendLocalLabel').classList.toggle('selected', backend === 'local');
+  document.getElementById('backendOnlineLabel').classList.toggle('selected', backend === 'openrouter');
+  document.getElementById('backendAutoLabel').classList.toggle('selected', backend === 'auto');
+
+  const advice = document.getElementById('backendAdviceText');
+  const alertEl = document.getElementById('backendAdvice');
+
+  if (backend === 'local') {
+    alertEl.className = 'alert alert-info show';
+    advice.innerHTML = '<strong>Local mode.</strong> The chatbot will use the local GGUF model from <code>.env</code>.';
+  } else if (backend === 'auto') {
+    alertEl.className = 'alert alert-info show';
+    advice.innerHTML = '<strong>Auto switch.</strong> The app will try local first, then fall back to OpenRouter.';
+  } else {
+    alertEl.className = 'alert alert-info show';
+    advice.innerHTML = '<strong>Online mode.</strong> OpenRouter will be used with the credentials below.';
+  }
+}
+
+async function loadAdminSettings() {
+  try {
+    const res = await fetch(API_URL + '/api/admin/settings');
+    if (!res.ok) return;
+    const data = await res.json();
+
+    const backend = (data.backend || data.llm_backend || 'openrouter').toLowerCase();
+    selectBackend(backend);
+
+    const apiKeyEl = document.getElementById('apiKey');
+    const modelEl = document.getElementById('modelName');
+    if (apiKeyEl) apiKeyEl.value = '';
+    if (modelEl && data.model) modelEl.value = data.model;
+
+    if (data.api_key_masked) {
+      showAlert('settingsAlert', '✅ Current API key: ' + data.api_key_masked + ' · Backend loaded', 'success');
+    }
+  } catch (e) {
+    // silent fail; user can still edit manually
+  }
+}
+
+async function saveAdminSettings() {
+  const apiKey = document.getElementById('apiKey').value.trim();
+  const model = document.getElementById('modelName').value.trim();
+
+  try {
+    const res = await fetch(API_URL + '/api/admin/settings', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        llm_backend: selectedBackend,
+        api_key: apiKey,
+        model: model
+      })
+    });
+
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Failed');
+
+    if (apiKey) document.getElementById('apiKey').value = '';
+    showAlert('settingsAlert', '✅ Settings saved and applied', 'success');
+  } catch (err) {
+    showAlert('settingsAlert', '❌ ' + err.message, 'error');
+  }
+}
+// ── Navigation ────────────────────────────────────────────────────────────────
+function showPage(name, tabEl) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  if (tabEl) tabEl.classList.add('active');
+  if (name === 'documents') loadDocuments();
+}
+
+// ── Logging ───────────────────────────────────────────────────────────────────
+function addLog(msg, type = '') {
+  const log = document.getElementById('activityLog');
+  if (!log) return;
+  const now = new Date().toTimeString().slice(0, 8);
+  const div = document.createElement('div');
+  div.className = 'log-line';
+  div.innerHTML = `<span class="log-time">${now}</span><span class="${type ? 'log-' + type : ''}">${msg}</span>`;
+  log.appendChild(div);
+  log.scrollTop = log.scrollHeight;
+  while (log.children.length > 100) log.removeChild(log.firstChild);
+}
+
+// ── Server Status ──────────────────────────────────────────────────────────────
+async function testConnection(verbose = false) {
+  const dot = document.getElementById('serverDot');
+  const text = document.getElementById('serverStatusText');
+  try {
+    const r = await fetch(API_URL + '/health', { signal: AbortSignal.timeout(5000) });
+    if (r.ok) {
+      dot.className = 'dot online';
+      text.textContent = 'Online';
+      if (verbose) showAlert('settingsAlert', '✅ Connected to ' + API_URL, 'success');
+      return true;
+    }
+  } catch (e) {}
+  dot.className = 'dot offline';
+  text.textContent = 'Offline';
+  if (verbose) showAlert('settingsAlert', '❌ Cannot reach ' + API_URL, 'error');
+  return false;
+}
+
+// ── Mode Toggle ───────────────────────────────────────────────────────────────
+let selectedMode = 'ingest';
+
+function selectMode(mode) {
+  selectedMode = mode;
+  document.getElementById('modeIngestLabel').classList.toggle('selected', mode === 'ingest');
+  document.getElementById('modeResetLabel').classList.toggle('selected', mode === 'reset');
+  const advice = document.getElementById('modeAdviceText');
+  const alertEl = document.getElementById('modeAdvice');
+  if (mode === 'ingest') {
+    alertEl.className = 'alert alert-info show';
+    advice.innerHTML = '<strong>✅ Safe choice.</strong> New chunks will be ADDED to existing data. Chatbot keeps all previous knowledge.';
+  } else {
+    alertEl.className = 'alert alert-warn show';
+    advice.innerHTML = '<strong>⚠️ Destructive!</strong> ALL existing chunks will be DELETED first. Only use if you rewrote your entire knowledge base.';
+  }
+}
+
+// ── File Handling ─────────────────────────────────────────────────────────────
+let fileQueue = [];
+
+function handleFiles(files) {
+  Array.from(files).forEach(f => {
+    if (!fileQueue.find(x => x.name === f.name)) fileQueue.push({ file: f, status: 'ready' });
+  });
+  renderQueue();
+}
+
+function renderQueue() {
+  const wrap = document.getElementById('fileQueueWrap');
+  const list = document.getElementById('fileQueue');
+  const count = document.getElementById('queueCount');
+  const btn = document.getElementById('ingestBtn');
+  if (fileQueue.length === 0) { wrap.style.display = 'none'; btn.disabled = true; return; }
+  wrap.style.display = 'block';
+  count.textContent = fileQueue.length;
+  btn.disabled = false;
+  list.innerHTML = fileQueue.map((item, i) => `
+    <div class="file-item" id="fitem-${i}">
+      <span class="file-item-icon">${fileIcon(item.file.name)}</span>
+      <div class="file-item-info">
+        <div class="file-item-name">${item.file.name}</div>
+        <div class="file-item-size">${formatBytes(item.file.size)}</div>
+      </div>
+      <span class="file-item-status status-${item.status}" id="fstatus-${i}">${item.status}</span>
+      <span class="file-remove" onclick="removeFile(${i})">✕</span>
+    </div>
+  `).join('');
+}
+
+function removeFile(i) { fileQueue.splice(i, 1); renderQueue(); }
+
+function clearQueue() {
+  fileQueue = [];
+  document.getElementById('fileInput').value = '';
+  renderQueue();
+  hideAlert('ingestAlert');
+  document.getElementById('ingestSummary').textContent = '';
+}
+
+function fileIcon(name) {
+  const ext = name.split('.').pop().toLowerCase();
+  return { txt: '📄', pdf: '📕', docx: '📝', csv: '📊', xlsx: '📊', json: '📋' }[ext] || '📄';
+}
+
+function formatBytes(b) {
+  if (b < 1024) return b + ' B';
+  if (b < 1048576) return (b / 1024).toFixed(1) + ' KB';
+  return (b / 1048576).toFixed(1) + ' MB';
+}
+
+// Drag & drop
+const zone = document.getElementById('uploadZone');
+zone.addEventListener('dragover', e => { e.preventDefault(); zone.classList.add('dragover'); });
+zone.addEventListener('dragleave', () => zone.classList.remove('dragover'));
+zone.addEventListener('drop', e => { e.preventDefault(); zone.classList.remove('dragover'); handleFiles(e.dataTransfer.files); });
+
+// ── Ingestion ─────────────────────────────────────────────────────────────────
+async function runIngest() {
+  if (fileQueue.length === 0) return;
+  const btn = document.getElementById('ingestBtn');
+  btn.disabled = true;
+  hideAlert('ingestAlert');
+  document.getElementById('ingestSummary').textContent = '';
+  const doReset = selectedMode === 'reset';
+
+  if (doReset) {
+    showProgress('Resetting vector store...');
+    addLog('Reset requested — wiping all chunks...', 'warn');
+    try {
+      const r = await fetch(API_URL + '/api/reset?confirm=true', { method: 'DELETE' });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || 'Reset failed');
+      addLog('Vector store reset complete.', 'warn');
+    } catch (e) {
+      hideProgress();
+      showAlert('ingestAlert', '❌ Reset failed: ' + e.message, 'error');
+      btn.disabled = false;
+      return;
+    }
+  }
+
+  let totalChunks = 0, successCount = 0, failCount = 0;
+
+  for (let i = 0; i < fileQueue.length; i++) {
+    const item = fileQueue[i];
+    setFileStatus(i, 'loading', 'uploading...');
+    showProgress(`[${i + 1}/${fileQueue.length}] Uploading ${item.file.name}...`);
+    addLog(`Uploading: ${item.file.name}`, 'info');
+    try {
+      const formData = new FormData();
+      formData.append('file', item.file);
+      const uploadRes = await fetch(API_URL + '/api/upload', { method: 'POST', body: formData });
+      const uploadData = await uploadRes.json();
+      if (!uploadRes.ok) throw new Error(uploadData.error || 'Upload failed');
+      const savedPath = uploadData.file_path;
+      addLog(`Saved to: ${savedPath}`, 'info');
+      setFileStatus(i, 'loading', 'indexing...');
+      showProgress(`[${i + 1}/${fileQueue.length}] Indexing ${item.file.name}...`);
+      const ingestRes = await fetch(API_URL + '/api/ingest', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ file_path: savedPath })
+      });
+      const ingestData = await ingestRes.json();
+      if (!ingestRes.ok) throw new Error(ingestData.error || 'Ingest failed');
+      totalChunks += ingestData.chunks_added || 0;
+      successCount++;
+      setFileStatus(i, 'success', `✓ ${ingestData.chunks_added}`);
+      addLog(`Indexed ${ingestData.chunks_added} chunks from ${item.file.name}`, 'success');
+    } catch (e) {
+      failCount++;
+      setFileStatus(i, 'error', '✗ failed');
+      addLog(`Failed: ${item.file.name} — ${e.message}`, 'error');
+    }
+  }
+
+  hideProgress();
+  const summary = `${successCount} file(s) · ${totalChunks} chunks${failCount > 0 ? ` · ${failCount} failed` : ''}`;
+  document.getElementById('ingestSummary').textContent = summary;
+  if (failCount === 0) {
+    showAlert('ingestAlert', `✅ Done! ${summary}`, 'success');
+    addLog('Ingestion complete. ' + summary, 'success');
+  } else {
+    showAlert('ingestAlert', `⚠️ Partial. ${summary}`, 'warn');
+  }
+  btn.disabled = false;
+}
+
+function setFileStatus(i, status, text) {
+  const el = document.getElementById('fstatus-' + i);
+  if (el) { el.className = 'file-item-status status-' + status; el.textContent = text; }
+}
+
+function showProgress(text) {
+  document.getElementById('progressWrap').classList.add('show');
+  document.getElementById('progressText').textContent = text;
+}
+function hideProgress() { document.getElementById('progressWrap').classList.remove('show'); }
+
+function showAlert(id, msg, type) {
+  const el = document.getElementById(id);
+  el.className = 'alert alert-' + type + ' show';
+  el.innerHTML = msg;
+}
+function hideAlert(id) { document.getElementById(id).className = 'alert'; }
+
+// ── Documents ─────────────────────────────────────────────────────────────────
+async function loadDocuments() {
+  const list = document.getElementById('docList');
+  list.innerHTML = '<div style="color:var(--muted); text-align:center; padding:32px 0; font-size:13px;">Loading...</div>';
+  try {
+    const r = await fetch(API_URL + '/api/sources');
+    if (!r.ok) throw new Error('Cannot load sources');
+    const data = await r.json();
+    const sources = data.sources || [];
+    if (sources.length === 0) {
+      list.innerHTML = '<div style="color:var(--muted); text-align:center; padding:32px 0; font-size:13px;">No documents indexed yet</div>';
+      return;
+    }
+    list.innerHTML = sources.map(s => `
+      <div class="doc-item">
+        <div class="doc-icon">${fileIcon(s.source)}</div>
+        <div class="doc-info">
+          <div class="doc-name">${s.source}</div>
+          <div class="doc-chunks">${s.count} chunks indexed</div>
+        </div>
+        <button class="doc-del" onclick="deleteSource('${s.source}')">🗑</button>
+      </div>
+    `).join('');
+  } catch (e) {
+    list.innerHTML = `<div style="color:var(--red); text-align:center; padding:32px 0; font-size:13px;">${e.message}</div>`;
+  }
+}
+
+async function deleteSource(source) {
+  if (!confirm(`Delete all chunks from "${source}"?`)) return;
+  try {
+    const r = await fetch(API_URL + '/api/delete-source', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ source })
+    });
+    const d = await r.json();
+    addLog(`Deleted source: ${source} (${d.deleted} chunks)`, 'warn');
+    loadDocuments();
+  } catch (e) {
+    addLog('Delete failed: ' + e.message, 'error');
+  }
+}
+
+// ── Reset Dialog ──────────────────────────────────────────────────────────────
+function showResetDialog() { document.getElementById('resetOverlay').classList.add('show'); }
+function hideResetDialog() { document.getElementById('resetOverlay').classList.remove('show'); }
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('resetOverlay')) hideResetDialog();
+}
+
+async function confirmReset() {
+  hideResetDialog();
+  addLog('Manual reset triggered...', 'warn');
+  try {
+    await fetch(API_URL + '/api/reset?confirm=true', { method: 'DELETE' });
+    addLog('Vector store wiped. All chunks deleted.', 'warn');
+    loadDocuments();
+  } catch (e) {
+    addLog('Reset failed: ' + e.message, 'error');
+  }
+}
+</script>
+</body>
+</html>

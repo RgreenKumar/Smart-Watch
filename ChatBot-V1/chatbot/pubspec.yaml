@@ -1,0 +1,42 @@
+name: chat_app
+description: Chat support admin app – production UI with live backend integration
+
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # HTTP client for Spring Boot and Python RAG REST calls
+  http: ^1.2.1
+
+  # JWT session persistence across app restarts
+  shared_preferences: ^2.3.1
+
+  # WebSocket – works on Web, Windows, Android, iOS with no native setup
+  web_socket_channel: ^3.0.1
+
+  # File picking for RAG document upload (withData:true gives bytes on all platforms)
+  file_picker: ^8.1.2
+
+  # SVG rendering for Google sign-in button
+  flutter_svg: ^2.0.10
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  mockito: ^5.4.4          # Mock HTTP client and services
+  build_runner: ^2.4.9     # Code generation for mockito
+  http_mock_adapter: ^0.6.1 # Mock HTTP responses
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/icons/

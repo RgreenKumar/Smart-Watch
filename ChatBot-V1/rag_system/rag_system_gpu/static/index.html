@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>RGreenMart — Premium Nuts & Dry Fruits</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f3f4f6;
+        }
+
+        /* ── Header ─────────────────────────────────── */
+        header {
+            background: #15803d;
+            color: white;
+            padding: 14px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+        .logo {
+            font-size: 22px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+        }
+        .logo span { color: #bbf7d0; }
+
+        .cart-btn {
+            background: white;
+            color: #15803d;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        /* ── Hero Banner ─────────────────────────────── */
+        .hero {
+            background: linear-gradient(135deg, #15803d, #16a34a);
+            color: white;
+            text-align: center;
+            padding: 50px 20px;
+        }
+        .hero h1 { font-size: 32px; margin-bottom: 10px; }
+        .hero p  { font-size: 16px; opacity: 0.9; }
+
+        /* ── Products ────────────────────────────────── */
+        h2.section-title {
+            text-align: center;
+            margin: 30px 0 16px;
+            color: #166534;
+            font-size: 22px;
+        }
+
+        .container {
+            padding: 0 20px 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 18px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .product {
+            background: white;
+            padding: 16px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            text-align: center;
+            transition: transform 0.2s;
+        }
+        .product:hover { transform: translateY(-4px); }
+
+        .product-emoji {
+            font-size: 52px;
+            margin-bottom: 8px;
+        }
+        .product h3 { font-size: 16px; color: #111827; margin-bottom: 4px; }
+        .product p  { font-size: 13px; color: #6b7280; margin-bottom: 8px; }
+        .price {
+            color: #16a34a;
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .add-btn {
+            padding: 8px 20px;
+            border: none;
+            background: #16a34a;
+            color: white;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+        .add-btn:hover { background: #15803d; }
+
+        /* ── Cart Sidebar ────────────────────────────── */
+        .cart-modal {
+            position: fixed;
+            top: 0; right: -100%;
+            width: 300px; height: 100%;
+            background: white;
+            box-shadow: -4px 0 20px rgba(0,0,0,0.12);
+            padding: 20px;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+            z-index: 200;
+        }
+        .cart-modal.active { right: 0; }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 14px;
+        }
+        .total {
+            font-weight: bold;
+            margin-top: 14px;
+            font-size: 16px;
+        }
+        .checkout-btn {
+            width: 100%;
+            margin-top: 12px;
+            padding: 10px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+        .close-cart {
+            float: right;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="logo">🌿 RGreen<span>Mart</span></div>
+    <button class="cart-btn" onclick="toggleCart()">
+        🛒 Cart (<span id="cart-count">0</span>)
+    </button>
+</header>
+
+<div class="hero">
+    <h1>Premium Nuts & Dry Fruits</h1>
+    <p>Farm-fresh | Quality Assured | Delivered across India</p>
+</div>
+
+<h2 class="section-title">Our Products</h2>
+
+<div class="container">
+    <div class="product">
+        <div class="product-emoji">🥜</div>
+        <h3>Premium Almonds</h3>
+        <p>250g, 500g, 1kg packs</p>
+        <div class="price">₹299</div>
+        <button class="add-btn" onclick="addToCart('Almonds', 299)">Add to Cart</button>
+    </div>
+    <div class="product">
+        <div class="product-emoji">🪙</div>
+        <h3>Fresh Cashews</h3>
+        <p>W180, W240, W320 grades</p>
+        <div class="price">₹449</div>
+        <button class="add-btn" onclick="addToCart('Cashews', 449)">Add to Cart</button>
+    </div>
+    <div class="product">
+        <div class="product-emoji">💚</div>
+        <h3>Pistachios</h3>
+        <p>Salted, Roasted, Plain</p>
+        <div class="price">₹599</div>
+        <button class="add-btn" onclick="addToCart('Pistachios', 599)">Add to Cart</button>
+    </div>
+    <div class="product">
+        <div class="product-emoji">🫀</div>
+        <h3>Walnuts</h3>
+        <p>Omega-3 rich, moisture-proof pack</p>
+        <div class="price">₹399</div>
+        <button class="add-btn" onclick="addToCart('Walnuts', 399)">Add to Cart</button>
+    </div>
+    <div class="product">
+        <div class="product-emoji">🍇</div>
+        <h3>Raisins</h3>
+        <p>Black & Golden, hygienically packed</p>
+        <div class="price">₹199</div>
+        <button class="add-btn" onclick="addToCart('Raisins', 199)">Add to Cart</button>
+    </div>
+    <div class="product">
+        <div class="product-emoji">🟤</div>
+        <h3>Arabian Dates</h3>
+        <p>Seeded & seedless varieties</p>
+        <div class="price">₹349</div>
+        <button class="add-btn" onclick="addToCart('Dates', 349)">Add to Cart</button>
+    </div>
+    <div class="product">
+        <div class="product-emoji">🍯</div>
+        <h3>Pure Honey</h3>
+        <p>Natural, unadulterated, antioxidant-rich</p>
+        <div class="price">₹499</div>
+        <button class="add-btn" onclick="addToCart('Honey', 499)">Add to Cart</button>
+    </div>
+    <div class="product">
+        <div class="product-emoji">🎁</div>
+        <h3>Gift Packs</h3>
+        <p>Premium festive combo boxes</p>
+        <div class="price">₹799</div>
+        <button class="add-btn" onclick="addToCart('Gift Pack', 799)">Add to Cart</button>
+    </div>
+</div>
+
+<!-- Cart Sidebar -->
+<div class="cart-modal" id="cartModal">
+    <button class="close-cart" onclick="toggleCart()">✕</button>
+    <h3 style="margin-bottom:14px">🛒 Your Cart</h3>
+    <div id="cart-items"><p style="color:#9ca3af;font-size:14px">Cart is empty</p></div>
+    <div class="total">Total: ₹<span id="cart-total">0</span></div>
+    <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+</div>
+
+<script>
+    let cart = [];
+
+    function addToCart(name, price) {
+        const existing = cart.find(i => i.name === name);
+        if (existing) {
+            existing.qty++;
+        } else {
+            cart.push({ name, price, qty: 1 });
+        }
+        updateCartUI();
+    }
+
+    function updateCartUI() {
+        const total    = cart.reduce((s, i) => s + i.price * i.qty, 0);
+        const count    = cart.reduce((s, i) => s + i.qty, 0);
+        document.getElementById('cart-count').textContent = count;
+        document.getElementById('cart-total').textContent = total;
+
+        const itemsDiv = document.getElementById('cart-items');
+        if (cart.length === 0) {
+            itemsDiv.innerHTML = '<p style="color:#9ca3af;font-size:14px">Cart is empty</p>';
+            return;
+        }
+        itemsDiv.innerHTML = cart.map(i => `
+            <div class="cart-item">
+                <span>${i.name} x${i.qty}</span>
+                <span>₹${i.price * i.qty}</span>
+            </div>
+        `).join('');
+    }
+
+    function toggleCart() {
+        document.getElementById('cartModal').classList.toggle('active');
+    }
+
+    function checkout() {
+        if (cart.length === 0) {
+            alert('Your cart is empty!');
+            return;
+        }
+        alert('Thank you for shopping at RGreenMart! Order placed successfully. ✅');
+        cart = [];
+        updateCartUI();
+        toggleCart();
+    }
+</script>
+
+<!-- ── RAG Chatbot Widget ───────────────────────── -->
+<script>
+    window.ChatbotConfig = {
+        apiUrl:     'http://localhost:5000',   // Your FastAPI RAG server
+        position:   'bottom-right',
+        brandName:  'RGreenMart Support',
+        headerColor:'#15803d'
+    };
+</script>
+<script src="chatbot-widget.js"></script>
+
+</body>
+</html>

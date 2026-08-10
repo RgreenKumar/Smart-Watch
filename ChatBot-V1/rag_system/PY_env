@@ -1,0 +1,43 @@
+# ── LLM ────────────────────────────────────────────────
+LLM_BACKEND=openrouter
+OPENROUTER_API_KEY=YOUR_KEY_HERE
+OPENROUTER_MODEL=arcee-ai/trinity-large-preview:free
+#OPENROUTER_MODEL=nousresearch/hermes-3-llama-3.1-405b:free
+# ── Local model (not used in openrouter mode) ───────────
+LOCAL_MODEL_PATH=./models/Phi-3-mini-4k-instruct-q4.gguf
+#LOCAL_MODEL_PATH=./models/Meta-Llama-3.1-8B-Instruct-Q4_K_M.gguf
+#LOCAL_MODEL_PATH=./models/tinyllama-1.1b-chat-v1.0.Q4_K_M.gguf
+LOCAL_N_CTX=2048
+LOCAL_N_GPU_LAYERS=0
+MAX_TOKENS=200
+MAX_CONTEXT_TOKENS=900
+
+# Embedding
+EMBEDDING_MODEL=BAAI/bge-large-en-v1.5
+EMBEDDING_DIM=1024
+NORMALIZE_EMBEDDINGS=true
+
+# ChromaDB
+CHROMA_PERSIST_DIR=./chroma_store
+CHROMA_COLLECTION_NAME=rag_system
+
+# Chunking
+CHUNK_SIZE=512
+CHUNK_OVERLAP=128
+MIN_CHUNK_SIZE=50
+
+# Retrieval
+TOP_K=5
+SIMILARITY_THRESHOLD=0.35
+MAX_CONTEXT_TOKENS=3000
+
+# Reranker (optional)
+ENABLE_RERANKER=false
+RERANKER_MODEL=BAAI/bge-reranker-large
+RERANKER_TOP_N=3
+
+# Flask
+FLASK_HOST=0.0.0.0
+FLASK_PORT=5000
+FLASK_DEBUG=false
+SECRET_KEY=rgreenmart-secret-2025

@@ -1,0 +1,158 @@
+{
+  "timestamp": "2026-03-05T12:25:11.390314",
+  "total": 14,
+  "passed": 12,
+  "failed": 2,
+  "errors": 0,
+  "score_pct": 85.71,
+  "overall": "PASS ✅",
+  "categories": {
+    "health": {
+      "pass": 12,
+      "fail": 2,
+      "total": 14
+    }
+  },
+  "results": [
+    {
+      "id": 1,
+      "question": "What are the benefits of almonds?",
+      "answer": "The context states that almonds are a nut with high fiber content, calcium, iron, potassium, and magnesium. They also contain natural laxaTIve properties and support bonne health and digestive health. The APRICOTS: High in beta-carotene which converts to Vitamin A supporting eye and immune health is a good source of plant-based minerals. Almonds are generally considered a general healthy snacking option, with 4 to 6 servings per week recommended for adults.",
+      "category": "health",
+      "note": "Almond health benefits",
+      "status": "PASS",
+      "elapsed": 24.8,
+      "details": "OK"
+    },
+    {
+      "id": 2,
+      "question": "Which nut has the most protein?",
+      "answer": "The best nut for kids is Almonds, as they contain the highest amount of protein among all nuts.",
+      "category": "health",
+      "note": "Protein content comparison",
+      "status": "PASS",
+      "elapsed": 6.97,
+      "details": "OK"
+    },
+    {
+      "id": 3,
+      "question": "What nut is best for brain?",
+      "answer": "The best nut for brain health is walnuts, as they contain high amounts of healthy fats and fiber that promote satiety. A 1-2 serving (28g to 57g) per day is recommended for optimal brain function.",
+      "category": "health",
+      "note": "Brain health recommendation",
+      "status": "PASS",
+      "elapsed": 7.27,
+      "details": "OK"
+    },
+    {
+      "id": 4,
+      "question": "Which nuts reduce cholesterol?",
+      "answer": "The nut that reduces cholesterol is not mentioned in the given context.",
+      "category": "health",
+      "note": "Cholesterol reduction",
+      "status": "PASS",
+      "elapsed": 5.71,
+      "details": "OK"
+    },
+    {
+      "id": 5,
+      "question": "Is honey good for health?",
+      "answer": "No, honey is not considered a good source of health benefits. It is a natural sweetener that has been used in traditional medicine for centuries but lacks the same level of nutritional value as other sweeteners such as sugar or artificial sweeteners.",
+      "category": "health",
+      "note": "Honey health benefits",
+      "status": "FAIL",
+      "elapsed": 7.37,
+      "details": "Missing keywords: ['antioxidant', 'immune', 'antimicrobial']"
+    },
+    {
+      "id": 6,
+      "question": "What are benefits of eating walnuts daily?",
+      "answer": "The recommended daily serving for nut consumption is 6 to 8 almonds per day or 28g (1oz), while the standard daily serving for nuts is a small handful of 28g or 1oz. The best nut for kids, as mentioned in the context, is Almonds and Raisins.",
+      "category": "health",
+      "note": "Walnut daily benefits",
+      "status": "FAIL",
+      "elapsed": 8.01,
+      "details": "Missing keywords: ['omega', 'brain', 'heart', 'cholesterol']"
+    },
+    {
+      "id": 7,
+      "question": "Is pista good for diabetics?",
+      "answer": "No, pista is not recommended for diabetics. Diabetes are a group of metabolic disorders caused by an imbalance in the body's ability to process glucose (a type of sugar) due to insufficient production or functioning of beta-cells responsible for producing and releasing glucose from the liver, pancreas, and other organs. Pista is not a suitable substitute for regular table sugar as it contains less sucrose than table sugar but still has high levels of fructose (a type of sugar that can cause diabetes). Therefore, diabetics should avoid consuming any foods containing pista or consult their healthcare provider before making a substitution.",
+      "category": "health",
+      "note": "Diabetes and pistachios",
+      "status": "PASS",
+      "elapsed": 12.43,
+      "details": "OK"
+    },
+    {
+      "id": 8,
+      "question": "Are dates good for energy?",
+      "answer": "Yes, dates are a good source of energy and support overall health. They contain high levels of polyphenols, which have anti-oxidant properties that help protect the body from damage caused by free radicals. Additionally, they are rich in dietary fiber, which helps regulate digestion and supports gut health. Dates also provide sustained energy release due to their high content of antioxidants and essential minerals such as potassium.",
+      "category": "health",
+      "note": "Dates energy benefit",
+      "status": "PASS",
+      "elapsed": 9.81,
+      "details": "OK"
+    },
+    {
+      "id": 9,
+      "question": "Which nuts are good for heart patients?",
+      "answer": "The nut mentioned in the context, \"Adults should aim for 4 to 6 serving(s) of unsalted nuts per week,\" suggests that heart patients can benefit from consuming a small handful (28g or 1 oz) of unsalted nuts as part of their daily diet.",
+      "category": "health",
+      "note": "Heart health nuts",
+      "status": "PASS",
+      "elapsed": 7.82,
+      "details": "OK"
+    },
+    {
+      "id": 10,
+      "question": "How many nuts should I eat per day?",
+      "answer": "The recommended daily serving for nuts is 28g or 1oz, which means one handful of 6 to 8 almonds per day.",
+      "category": "health",
+      "note": "Serving size recommendation",
+      "status": "PASS",
+      "elapsed": 6.28,
+      "details": "OK"
+    },
+    {
+      "id": 11,
+      "question": "Is apricot good for eyes?",
+      "answer": "No, apricoat is not recommended for use as a supplement to improve eyesight. It contains beta-carotenes which are not naturally found in the human diet and may have limited health benefits.",
+      "category": "health",
+      "note": "Apricot eye health",
+      "status": "PASS",
+      "elapsed": 7.52,
+      "details": "OK"
+    },
+    {
+      "id": 12,
+      "question": "What are benefits of figs?",
+      "answer": "The context states that figs are one of the most nutritious dried fruit available at RGreenMart. The key benefits listed include: - Rich in dietary fibre supporting healthy digestion and bowel regularity - High in calcium supporting strong bonerhealth and preventing osteopoorsis - Good source of iron helping prevent anemia and supporting blood health - Rich in potassium helping maintain healthy blood pressure",
+      "category": "health",
+      "note": "Fig health benefits",
+      "status": "PASS",
+      "elapsed": 8.62,
+      "details": "OK"
+    },
+    {
+      "id": 13,
+      "question": "Are raisins good for digestion?",
+      "answer": "No, raisins are not considered good for digestion. They contain a high amount of sugar and may cause gastrointestinal discomfort or irritation in some individuals.",
+      "category": "health",
+      "note": "Raisin digestion benefit",
+      "status": "PASS",
+      "elapsed": 6.38,
+      "details": "OK"
+    },
+    {
+      "id": 14,
+      "question": "Which nut has omega 3?",
+      "answer": "The nut that has omega 3 is not mentioned in the given context.",
+      "category": "health",
+      "note": "Omega-3 source",
+      "status": "PASS",
+      "elapsed": 5.62,
+      "details": "OK"
+    }
+  ]
+}

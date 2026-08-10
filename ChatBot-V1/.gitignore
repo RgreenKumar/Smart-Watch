@@ -1,0 +1,12 @@
+.metadata/
+.vscode/
+.idea/
+*.iml
+*.log
+*.zip
+*.tar.gz
+node_modules/
+dist/
+build/
+coverage/
+.DS_Store

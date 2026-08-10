@@ -1,0 +1,158 @@
+{
+  "timestamp": "2026-03-05T12:27:31.440043",
+  "total": 14,
+  "passed": 13,
+  "failed": 1,
+  "errors": 0,
+  "score_pct": 92.86,
+  "overall": "PASS ✅",
+  "categories": {
+    "health": {
+      "pass": 13,
+      "fail": 1,
+      "total": 14
+    }
+  },
+  "results": [
+    {
+      "id": 1,
+      "question": "What are the benefits of almonds?",
+      "answer": "Almonds support brain development, provide fiber and protein to reduce hunger, and are good for kids.",
+      "category": "health",
+      "note": "Almond health benefits",
+      "status": "FAIL",
+      "elapsed": 12.62,
+      "details": "Missing keywords: ['vitamin', 'heart', 'cholesterol']"
+    },
+    {
+      "id": 2,
+      "question": "Which nut has the most protein?",
+      "answer": "Pistachios have the most protein among nuts, with 6 grams per 1-ounce serving.",
+      "category": "health",
+      "note": "Protein content comparison",
+      "status": "PASS",
+      "elapsed": 3.91,
+      "details": "OK"
+    },
+    {
+      "id": 3,
+      "question": "What nut is best for brain?",
+      "answer": "Walnuts are best for brain health.",
+      "category": "health",
+      "note": "Brain health recommendation",
+      "status": "PASS",
+      "elapsed": 3.66,
+      "details": "OK"
+    },
+    {
+      "id": 4,
+      "question": "Which nuts reduce cholesterol?",
+      "answer": "Walnuts and pistachios reduce cholesterol.",
+      "category": "health",
+      "note": "Cholesterol reduction",
+      "status": "PASS",
+      "elapsed": 3.95,
+      "details": "OK"
+    },
+    {
+      "id": 5,
+      "question": "Is honey good for health?",
+      "answer": "Yes, honey is good for health. It has strong antimicrobial properties, is rich in antioxidants, supports immune health, and has wound-healing properties.",
+      "category": "health",
+      "note": "Honey health benefits",
+      "status": "PASS",
+      "elapsed": 6.03,
+      "details": "OK"
+    },
+    {
+      "id": 6,
+      "question": "What are benefits of eating walnuts daily?",
+      "answer": "Walnuts are excellent source of omega-3 fatty acids, rich in copper and manganese. Eating 1 to 2 ounces (28-57g) per day may improve brain function and reduce risk factors for dementia. Reduces LDL cholesterol and blood pressure. Improves artery health and reduces inflammation throughout the body.",
+      "category": "health",
+      "note": "Walnut daily benefits",
+      "status": "PASS",
+      "elapsed": 5.66,
+      "details": "OK"
+    },
+    {
+      "id": 7,
+      "question": "Is pista good for diabetics?",
+      "answer": "Yes, pista is good for diabetics. It helps maintain normal blood sugar levels after meals and is rich in healthy fats and protein.",
+      "category": "health",
+      "note": "Diabetes and pistachios",
+      "status": "PASS",
+      "elapsed": 5.42,
+      "details": "OK"
+    },
+    {
+      "id": 8,
+      "question": "Are dates good for energy?",
+      "answer": "Yes, dates are naturally sweet and energy-dense, making them an excellent natural sweetener alternative and providing sustained energy release.",
+      "category": "health",
+      "note": "Dates energy benefit",
+      "status": "PASS",
+      "elapsed": 4.38,
+      "details": "OK"
+    },
+    {
+      "id": 9,
+      "question": "Which nuts are good for heart patients?",
+      "answer": "Walnuts, almonds, and pistachios are good for heart patients.",
+      "category": "health",
+      "note": "Heart health nuts",
+      "status": "PASS",
+      "elapsed": 3.69,
+      "details": "OK"
+    },
+    {
+      "id": 10,
+      "question": "How many nuts should I eat per day?",
+      "answer": "A small handful of 28g or 1oz is the standard daily serving for nuts.",
+      "category": "health",
+      "note": "Serving size recommendation",
+      "status": "PASS",
+      "elapsed": 3.73,
+      "details": "OK"
+    },
+    {
+      "id": 11,
+      "question": "Is apricot good for eyes?",
+      "answer": "Yes, apricots are good for eyes. They are high in beta-carotene which converts to Vitamin A, supporting eye health.",
+      "category": "health",
+      "note": "Apricot eye health",
+      "status": "PASS",
+      "elapsed": 4.63,
+      "details": "OK"
+    },
+    {
+      "id": 12,
+      "question": "What are benefits of figs?",
+      "answer": "Rich in dietary fiber supporting healthy digestion and bowel regularity, high in calcium supporting strong bone health and preventing osteoporosis, good source of iron helping prevent anemia and supporting blood health, rich in potassium helping maintain healthy blood pressure, contains magnesium supporting muscle and nerve function, natural laxative properties helping relieve constipation, naturally sweet making it an excellent healthy dessert alternative, rich in antioxidants protecting cells from damage, supports bone density due to high calcium and phosphorus content, good source of plant-based minerals for overall health.",
+      "category": "health",
+      "note": "Fig health benefits",
+      "status": "PASS",
+      "elapsed": 5.35,
+      "details": "OK"
+    },
+    {
+      "id": 13,
+      "question": "Are raisins good for digestion?",
+      "answer": "Yes, raisins are good for digestion as they are rich in dietary fiber.",
+      "category": "health",
+      "note": "Raisin digestion benefit",
+      "status": "PASS",
+      "elapsed": 3.53,
+      "details": "OK"
+    },
+    {
+      "id": 14,
+      "question": "Which nut has omega 3?",
+      "answer": "Walnuts.",
+      "category": "health",
+      "note": "Omega-3 source",
+      "status": "PASS",
+      "elapsed": 4.06,
+      "details": "OK"
+    }
+  ]
+}
