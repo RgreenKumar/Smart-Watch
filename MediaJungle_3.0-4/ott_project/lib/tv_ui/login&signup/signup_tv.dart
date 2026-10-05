@@ -195,7 +195,7 @@ class _TVSignUpState extends State<TVSignUp> {
                       const SizedBox(height: 10),
                       MyTextFieldTV(
                         controller: usernameController,
-                        icon: FontAwesomeIcons.user,
+                        icon: Icons.person,
                         hint: 'User Name',
                         inputType: TextInputType.name,
                         inputAction: TextInputAction.next,
@@ -206,7 +206,7 @@ class _TVSignUpState extends State<TVSignUp> {
                       ),
                       MyTextFieldTV(
                         controller: emailController,
-                        icon: FontAwesomeIcons.envelope,
+                        icon: Icons.email,
                         hint: 'Email',
                         inputType: TextInputType.emailAddress,
                         inputAction: TextInputAction.next,
@@ -217,7 +217,7 @@ class _TVSignUpState extends State<TVSignUp> {
                       ),
                       MyTextFieldTV(
                         controller: mobilenumberController,
-                        icon: FontAwesomeIcons.phone,
+                        icon: Icons.phone,
                         hint: 'Mobile Number',
                         inputType: TextInputType.number,
                         inputAction: TextInputAction.next,
@@ -228,7 +228,7 @@ class _TVSignUpState extends State<TVSignUp> {
                       ),
                       MyTextFieldTV(
                         controller: passwordController,
-                        icon: FontAwesomeIcons.lock,
+                        icon: Icons.lock,
                         hint: 'Password',
                         inputType: TextInputType.visiblePassword,
                         suffixIcon: IconButton(
@@ -245,7 +245,7 @@ class _TVSignUpState extends State<TVSignUp> {
                       ),
                       MyTextFieldTV(
                         controller: confirmpasswordController,
-                        icon: FontAwesomeIcons.lock,
+                        icon: Icons.lock,
                         hint: 'Confirm Password',
                         inputType: TextInputType.visiblePassword,
                         suffixIcon: IconButton(

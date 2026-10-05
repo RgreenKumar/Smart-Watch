@@ -90,7 +90,7 @@ class _VerificationCodePageState extends State<VerificationCodePage> {
                       //SizedBox(height: 15),
                       MyTextField( 
                           controller: codeController,
-                          icon: FontAwesomeIcons.lock,
+                          icon: Icons.lock,
                           hint: 'Enter OTP',
                           inputType: TextInputType.visiblePassword,
                           inputAction: TextInputAction.done,

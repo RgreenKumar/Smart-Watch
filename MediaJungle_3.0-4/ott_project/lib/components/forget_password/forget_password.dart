@@ -139,7 +139,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                       ),
                       MyTextField(
                           controller: passwordController,
-                          icon: FontAwesomeIcons.lock,
+                          icon: Icons.lock,
                           hint: 'New Password',
                           inputType: TextInputType.visiblePassword,
                          suffixIcon: IconButton(onPressed: (){
@@ -155,7 +155,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
                       ),
                       MyTextField(
                           controller: confirmPasswordController,
-                          icon: FontAwesomeIcons.lock,
+                          icon: Icons.lock,
                           hint: 'Confirm Password',
                           inputType: TextInputType.visiblePassword,
                           suffixIcon: IconButton(onPressed: (){

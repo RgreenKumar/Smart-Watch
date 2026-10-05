@@ -112,15 +112,12 @@ class _SignUpState extends State<SignUp> {
     setState(() => isSendingOtp = true);
 
     try {
-      // ✅ FIXED: Removed duplicate '/api/v2' — baseUrl already contains it.
-      final request = http.MultipartRequest(
-        'POST',
+      // OTP send must be JSON so Express populates req.body.email.
+      final response = await http.post(
         Uri.parse('$baseUrl/send-code'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({'email': emailController.text.trim()}),
       );
-      request.fields['email'] = emailController.text.trim();
-
-      final streamedResponse = await request.send();
-      final response = await http.Response.fromStream(streamedResponse);
 
       if (!mounted) return;
 
@@ -174,16 +171,15 @@ class _SignUpState extends State<SignUp> {
     setState(() => isVerifyingOtp = true);
 
     try {
-      // ✅ FIXED: Removed duplicate '/api/v2' — baseUrl already contains it.
-      final request = http.MultipartRequest(
-        'POST',
+      // Verify OTP must be JSON so Express populates req.body.
+      final response = await http.post(
         Uri.parse('$baseUrl/verify-code'),
+        headers: {'Content-Type': 'application/json'},
+        body: jsonEncode({
+          'email': emailController.text.trim(),
+          'code': otp,
+        }),
       );
-      request.fields['email'] = emailController.text.trim();
-      request.fields['code'] = otp;
-
-      final streamedResponse = await request.send();
-      final response = await http.Response.fromStream(streamedResponse);
 
       if (!mounted) return;
 
@@ -331,7 +327,7 @@ class _SignUpState extends State<SignUp> {
                                 backgroundColor:
                                     Colors.grey.shade200.withOpacity(0.3),
                                 child: _imageFile == null
-                                    ? Icon(FontAwesomeIcons.user,
+                                    ? FaIcon(FontAwesomeIcons.user,
                                         color: kWhite, size: size.width * 0.11)
                                     : CircleAvatar(
                                         radius: size.width * 0.13,
@@ -357,7 +353,7 @@ class _SignUpState extends State<SignUp> {
                     // Username
                     MyTextField(
                       controller: usernameController,
-                      icon: FontAwesomeIcons.user,
+                      icon: Icons.person,
                       hint: 'User Name',
                       inputType: TextInputType.name,
                       inputAction: TextInputAction.next,
@@ -388,7 +384,7 @@ class _SignUpState extends State<SignUp> {
                                     .bodyLarge!
                                     .copyWith(color: Colors.white54),
                                 prefixIcon: const Icon(
-                                    FontAwesomeIcons.envelope,
+                                    Icons.email,
                                     color: Colors.white),
                                 enabledBorder: OutlineInputBorder(
                                   borderSide:
@@ -481,7 +477,7 @@ class _SignUpState extends State<SignUp> {
                                     .textTheme
                                     .bodyLarge!
                                     .copyWith(color: Colors.white54),
-                                prefixIcon: const Icon(FontAwesomeIcons.key,
+                                prefixIcon: const FaIcon(FontAwesomeIcons.key,
                                     color: Colors.white),
                                 enabledBorder: OutlineInputBorder(
                                   borderSide:
@@ -566,7 +562,7 @@ class _SignUpState extends State<SignUp> {
                     // Mobile number
                     MyTextField(
                       controller: mobilenumberController,
-                      icon: FontAwesomeIcons.phone,
+                      icon: Icons.phone,
                       hint: 'Mobile Number',
                       inputType: TextInputType.number,
                       inputAction: TextInputAction.next,
@@ -585,7 +581,7 @@ class _SignUpState extends State<SignUp> {
                     // Password
                     MyTextField(
                       controller: passwordController,
-                      icon: FontAwesomeIcons.lock,
+                      icon: Icons.lock,
                       hint: 'Password',
                       inputType: TextInputType.visiblePassword,
                       inputAction: TextInputAction.next,
@@ -618,7 +614,7 @@ class _SignUpState extends State<SignUp> {
                     // Confirm Password
                     MyTextField(
                       controller: confirmpasswordController,
-                      icon: FontAwesomeIcons.lock,
+                      icon: Icons.lock,
                       hint: 'Confirm Password',
                       inputType: TextInputType.visiblePassword,
                       inputAction: TextInputAction.done,

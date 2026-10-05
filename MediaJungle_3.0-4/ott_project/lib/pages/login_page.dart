@@ -86,7 +86,7 @@ class _LoginPageState extends State<LoginPage> {
                         controller: emailController,
                         hint: 'Enter Email',
                         obscureText: false,
-                        icon: FontAwesomeIcons.envelope,
+                        icon: Icons.email,
                         inputType: TextInputType.emailAddress,
                         inputAction: TextInputAction.next,
                       ),
@@ -96,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                         controller: passwordController,
                         hint: 'Enter Password',
                         obscureText: !visiblePassword,
-                        icon: FontAwesomeIcons.lock,
+                        icon: Icons.lock,
                         inputType: TextInputType.visiblePassword,
                         inputAction: TextInputAction.done,
                         suffixIcon: IconButton(

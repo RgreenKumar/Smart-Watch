@@ -24,7 +24,7 @@ class Service {
     String confirmpassword,
     File? profilePicture,
   ) async {
-    var uri = Uri.parse('$baseUrl/userregister');
+    var uri = Uri.parse('$baseUrl/register');
     var request = http.MultipartRequest('POST', uri);
     request.fields['username'] = username;
     request.fields['email'] = email;
@@ -60,7 +60,7 @@ class Service {
     String password,
     String confirmpassword,
   ) async {
-    var uri = Uri.parse('$baseUrl/userregister');
+    var uri = Uri.parse('$baseUrl/register');
     var request = http.MultipartRequest('POST', uri);
     request.fields['username'] = username;
     request.fields['email'] = email;
@@ -86,7 +86,7 @@ class Service {
     TextEditingController emailController,
     TextEditingController passwordController,
   ) async {
-    var uri = Uri.parse('$baseUrl/login');
+    var uri = Uri.parse('$baseUrl/auth/login');
     Map<String, String> headers = {'Content-Type': 'application/json'};
     var body = jsonEncode({'email': email, 'password': password});
 
@@ -129,7 +129,7 @@ class Service {
   Future<bool> loginUser1(
       BuildContext context, String email, String password) async {
     try {
-      var uri = Uri.parse('$baseUrl/login');
+      var uri = Uri.parse('$baseUrl/auth/login');
       var response = await http.post(uri,
           headers: {'Content-Type': 'application/json'},
           body: jsonEncode({'email': email, 'password': password}));

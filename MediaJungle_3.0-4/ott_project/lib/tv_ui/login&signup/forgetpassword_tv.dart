@@ -199,7 +199,7 @@ class _TVForgetPasswordState extends State<TVForgetPassword> {
                           SizedBox(height: size.height * 0.02),
                           MyTextFieldTV(
                             controller: emailController,
-                            icon: FontAwesomeIcons.envelope,
+                            icon: Icons.email,
                             hint: 'Email',
                             inputType: TextInputType.emailAddress,
                             inputAction: TextInputAction.next,
@@ -209,7 +209,7 @@ class _TVForgetPasswordState extends State<TVForgetPassword> {
                           SizedBox(height: size.height * 0.02),
                           MyTextFieldTV(
                             controller: passwordController,
-                            icon: FontAwesomeIcons.lock,
+                            icon: Icons.lock,
                             hint: 'New Password',
                             inputType: TextInputType.visiblePassword,
                             inputAction: TextInputAction.next,
@@ -219,7 +219,7 @@ class _TVForgetPasswordState extends State<TVForgetPassword> {
                           SizedBox(height: size.height * 0.02),
                           MyTextFieldTV(
                             controller: confirmPasswordController,
-                            icon: FontAwesomeIcons.lock,
+                            icon: Icons.lock,
                             hint: 'Confirm Password',
                             inputType: TextInputType.visiblePassword,
                             inputAction: TextInputAction.done,

@@ -113,7 +113,7 @@ class _ForgetPasswordEmailState extends State<ForgetPasswordEmail> {
                       controller: emailController,
                       hint: 'Enter Email',
                       obscureText: false,
-                      icon: FontAwesomeIcons.envelope,
+                      icon: Icons.email,
                       inputType: TextInputType.emailAddress,
                       inputAction: TextInputAction.done,
                     ),

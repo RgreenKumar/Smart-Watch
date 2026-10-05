@@ -13,6 +13,7 @@ import 'package:ott_project/components/music_folder/playlist.dart';
 import 'package:ott_project/components/music_folder/recently_played.dart';
 import 'package:ott_project/components/music_folder/recently_played_manager.dart';
 import 'package:ott_project/service/audio_api_service.dart';
+import 'package:ott_project/service/media_control_service.dart';
 import 'package:ott_project/service/playlist_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -159,14 +160,23 @@ class AudioProvider with ChangeNotifier {
   AudioProvider(this.playlistService) {
     loadMusicPlaylists();
 
+    // ── Wear OS media-control link ────────────────────────────────────────
+    // Register this provider as the command handler and open the page
+    // connection to the relay server so the watch can see/control playback.
+    final mc = MediaControlService.instance;
+    mc.handler = _MediaControlHandler(this);
+    mc.connect();
+
     audioPlayer.onDurationChanged.listen((d) {
       duration = d;
       notifyListeners();
+      _broadcastState();
     });
 
     audioPlayer.onPositionChanged.listen((p) {
       position = p;
       notifyListeners();
+      _broadcastState();
     });
 
     // FIX — Route completion to the correct flow.
@@ -176,6 +186,7 @@ class AudioProvider with ChangeNotifier {
     audioPlayer.onPlayerComplete.listen((_) {
       isPlaying = false;
       notifyListeners();
+      _broadcastState();
       switch (_activeFlow) {
         case _ActiveFlow.audioDescription:
           _onAudioDescriptionComplete();
@@ -236,6 +247,7 @@ class AudioProvider with ChangeNotifier {
       isPlaying = true;
       updateCurrentlyPlayingSong(current);
       notifyListeners();
+      _announceStarted(current.audioTitle);
     } catch (e) {
       debugPrint('AudioProvider.playSong error: $e');
     }
@@ -258,6 +270,7 @@ class AudioProvider with ChangeNotifier {
         isPlaying = true;
       }
       notifyListeners();
+      _broadcastState();
     } catch (e) {
       debugPrint('AudioProvider.playPauseSong error: $e');
     }
@@ -439,6 +452,7 @@ class AudioProvider with ChangeNotifier {
       isPlaying = true;
       _musiccurrentlyPlaying = current;
       notifyListeners();
+      _announceStarted(current.songname);
     } catch (e) {
       debugPrint('AudioProvider.playMusic error: $e');
     }
@@ -457,6 +471,7 @@ class AudioProvider with ChangeNotifier {
         isPlaying = true;
       }
       notifyListeners();
+      _broadcastState();
     } catch (e) {
       debugPrint('AudioProvider.playPauseMusic error: $e');
     }
@@ -611,6 +626,7 @@ class AudioProvider with ChangeNotifier {
       isPlaying = true;
       _updateCurrentlyPlaying(current);
       notifyListeners();
+      _announceStarted(current.songname);
     } catch (e) {
       debugPrint('AudioProvider.playAudio error: $e');
     }
@@ -629,6 +645,7 @@ class AudioProvider with ChangeNotifier {
         isPlaying = true;
       }
       notifyListeners();
+      _broadcastState();
     } catch (e) {
       debugPrint('AudioProvider.playPause error: $e');
     }
@@ -759,6 +776,65 @@ class AudioProvider with ChangeNotifier {
   Future<void> seekTo(Duration pos) async {
     await audioPlayer.seek(pos);
     notifyListeners();
+    _broadcastState();
+  }
+
+  /// Stops the current playback entirely (used by the Wear OS 'stop' command).
+  Future<void> stopPlayback() async {
+    await audioPlayer.stop();
+    isPlaying = false;
+    notifyListeners();
+    _announceStopped();
+  }
+
+  // ─────────────────────────────────────────────────────────────────────────
+  // Wear OS media-control helpers
+  // ─────────────────────────────────────────────────────────────────────────
+
+  /// Resolve the currently playing track title for the active flow.
+  String get _currentTitle {
+    switch (_activeFlow) {
+      case _ActiveFlow.audioDescription:
+        return _audioDescriptioncurrently?.audioTitle ?? '';
+      case _ActiveFlow.music:
+        return _musiccurrentlyPlaying?.songname ?? '';
+      case _ActiveFlow.legacyAudio:
+        return _currentlyPlaying?.songname ?? '';
+      case _ActiveFlow.none:
+        return '';
+    }
+  }
+
+  /// Resolve a subtitle (e.g. movie name) for the active flow.
+  String get _currentSubtitle {
+    if (_activeFlow == _ActiveFlow.audioDescription) {
+      return _audioDescriptioncurrently?.movieName ?? '';
+    }
+    return '';
+  }
+
+  /// Push the current playback state to the relay so the watch can display it.
+  void _broadcastState() {
+    final status = isPlaying ? 'playing' : (audioUrl != null ? 'paused' : 'stopped');
+    MediaControlService.instance.broadcastState(
+      status: status,
+      title: _currentTitle,
+      subtitle: _currentSubtitle,
+      positionSec: position.inMilliseconds / 1000.0,
+      durationSec: duration.inMilliseconds / 1000.0,
+    );
+  }
+
+  /// Notify the relay that playback of a track started.
+  void _announceStarted(String title) {
+    _broadcastState();
+    MediaControlService.instance.broadcastEvent('started', title: title);
+  }
+
+  /// Notify the relay that playback stopped.
+  void _announceStopped() {
+    MediaControlService.instance.broadcastEvent('stopped');
+    _broadcastState();
   }
 
   // =========================================================================
@@ -984,5 +1060,82 @@ class AudioProvider with ChangeNotifier {
   void dispose() {
     audioPlayer.dispose();
     super.dispose();
+  }
+}
+
+/// Maps Wear OS watch commands to the active playback flow in [AudioProvider].
+class _MediaControlHandler implements MediaCommandHandler {
+  _MediaControlHandler(this.provider);
+
+  final AudioProvider provider;
+
+  @override
+  void onCommand(MediaCommand command) {
+    switch (command.action) {
+      case 'togglePlayPause':
+        switch (provider._activeFlow) {
+          case _ActiveFlow.audioDescription:
+            provider.playPauseSong();
+            break;
+          case _ActiveFlow.music:
+            provider.playPauseMusic();
+            break;
+          case _ActiveFlow.legacyAudio:
+            provider.playPause();
+            break;
+          case _ActiveFlow.none:
+            break;
+        }
+        break;
+      case 'previous':
+        switch (provider._activeFlow) {
+          case _ActiveFlow.audioDescription:
+            provider.playPreviousSong();
+            break;
+          case _ActiveFlow.music:
+            provider.playPreviousMusic();
+            break;
+          case _ActiveFlow.legacyAudio:
+            provider.playPrevious();
+            break;
+          case _ActiveFlow.none:
+            break;
+        }
+        break;
+      case 'next':
+        switch (provider._activeFlow) {
+          case _ActiveFlow.audioDescription:
+            provider.playNextSong();
+            break;
+          case _ActiveFlow.music:
+            provider.playNextMusic();
+            break;
+          case _ActiveFlow.legacyAudio:
+            provider.playNext();
+            break;
+          case _ActiveFlow.none:
+            break;
+        }
+        break;
+      case 'stop':
+        provider.stopPlayback();
+        break;
+      case 'seekForward':
+        provider.seekTo(provider.position +
+            Duration(seconds: (command.value ?? 10).toInt()));
+        break;
+      case 'seekBackward':
+        provider.seekTo(provider.position -
+            Duration(seconds: (command.value ?? 10).toInt()));
+        break;
+      case 'volumeUp':
+        provider.audioPlayer.setVolume(1.0);
+        break;
+      case 'volumeDown':
+        provider.audioPlayer.setVolume(0.5);
+        break;
+      default:
+        break;
+    }
   }
 }

@@ -249,24 +249,31 @@ Future<void> fetchUserProfile(BuildContext context) async {
 
                       //SizedBox(height: 15),
                       MyTextField(
-                          controller: currentPasswordController,
-                          icon: FontAwesomeIcons.lock,
-                         suffixIcon: IconButton(onPressed: (){
-                              setState(() {
-                                currentVisiblePassword = !currentVisiblePassword;
-                              });
-                            },
-                             icon: Icon(currentVisiblePassword ? Icons.visibility :Icons.visibility_off,color: Colors.white,size: 20,)),
-                          hint: 'Current Password',
-                          inputType: TextInputType.visiblePassword,
-                          inputAction: TextInputAction.next,
-                          obscureText: !currentVisiblePassword),
+                        controller: currentPasswordController,
+                        icon: Icons.lock,
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            setState(() {
+                              currentVisiblePassword = !currentVisiblePassword;
+                            });
+                          },
+                          icon: Icon(
+                            currentVisiblePassword ? Icons.visibility : Icons.visibility_off,
+                            color: Colors.white,
+                            size: 20,
+                          ),
+                        ),
+                        hint: 'Current Password',
+                        inputType: TextInputType.visiblePassword,
+                        inputAction: TextInputAction.next,
+                        obscureText: !currentVisiblePassword, // <--- Added the missing comma here
+                      ), // <--- Added closing parenthesis for MyTextField
                       SizedBox(
                         height: MediaQuery.sizeOf(context).height * 0.01,
                       ),
                       MyTextField(
                           controller: newPasswordController,
-                          icon: FontAwesomeIcons.lock,
+                          icon: Icons.lock,
                           suffixIcon: IconButton(onPressed: (){
                               setState(() {
                                 newVisiblePassword = !newVisiblePassword;
@@ -282,7 +289,7 @@ Future<void> fetchUserProfile(BuildContext context) async {
                       ),
                       MyTextField(
                           controller: confirmPasswordController,
-                          icon: FontAwesomeIcons.lock,
+                          icon: Icons.lock,
                           suffixIcon: IconButton(onPressed: (){
                               setState(() {
                                 confirmVisiblePassword = !confirmVisiblePassword;

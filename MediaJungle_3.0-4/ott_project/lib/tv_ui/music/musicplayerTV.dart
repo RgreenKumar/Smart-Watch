@@ -8,6 +8,7 @@ import 'package:ott_project/components/library/audio_playlist.dart';
 import 'package:ott_project/components/music_folder/audio_container.dart';
 import 'package:ott_project/components/music_folder/audio_provider.dart' as ap;
 import 'package:ott_project/service/audio_api_service.dart';
+import 'package:ott_project/service/media_control_service.dart';
 import 'package:ott_project/service/playlist_service.dart';
 import 'package:ott_project/service/service.dart';
 import 'package:ott_project/tv_ui/FocusManager/focus_manager.dart';
@@ -66,6 +67,7 @@ class _TVMusicPlayerPageState extends State<TVMusicPlayerPage> {
     FocusManagerService.currentPage = 3;
     _initializeServices();
     _setupAudioPlayer();
+    _setupMediaControl();
     _loadInitialData();
 
     // Request focus on our private node after the first frame
@@ -103,10 +105,12 @@ class _TVMusicPlayerPageState extends State<TVMusicPlayerPage> {
   void _setupAudioPlayer() {
     _audioPlayer.onPositionChanged.listen((position) {
       if (mounted) setState(() => _currentPosition = position);
+      _broadcastState();
     });
 
     _audioPlayer.onDurationChanged.listen((duration) {
       if (mounted) setState(() => _totalDuration = duration);
+      _broadcastState();
     });
 
     _audioPlayer.onPlayerComplete.listen((_) {
@@ -118,6 +122,40 @@ class _TVMusicPlayerPageState extends State<TVMusicPlayerPage> {
         _playNextSong();
       }
     });
+  }
+
+  /// Register as the active Wear OS command handler + connect to the relay,
+  /// so the watch can control this website/TV player.
+  void _setupMediaControl() {
+    final mc = MediaControlService.instance;
+    mc.handler = _TvMediaControlHandler(this);
+    mc.connect();
+  }
+
+  void _broadcastState() {
+    final song = _selectedSongIndex >= 0 &&
+            _selectedSongIndex < widget.audioDescriptions.length
+        ? widget.audioDescriptions[_selectedSongIndex]
+        : null;
+    MediaControlService.instance.broadcastState(
+      status: _isPlaying
+          ? 'playing'
+          : (_audioUrl != null ? 'paused' : 'stopped'),
+      title: song?.audioTitle ?? '',
+      subtitle: song?.movieName ?? '',
+      positionSec: _currentPosition.inMilliseconds / 1000.0,
+      durationSec: _totalDuration.inMilliseconds / 1000.0,
+    );
+  }
+
+  void _announceStarted() {
+    _broadcastState();
+    final song = _selectedSongIndex >= 0 &&
+            _selectedSongIndex < widget.audioDescriptions.length
+        ? widget.audioDescriptions[_selectedSongIndex]
+        : null;
+    MediaControlService.instance
+        .broadcastEvent('started', title: song?.audioTitle ?? '');
   }
 
   Future<void> _loadInitialData() async {
@@ -181,6 +219,7 @@ class _TVMusicPlayerPageState extends State<TVMusicPlayerPage> {
           _isLiked = _likedSongIds.contains(song.id.toString());
         });
       }
+      _announceStarted();
     } catch (e) {
       debugPrint('Error playing song: $e');
       if (mounted) {
@@ -210,11 +249,24 @@ class _TVMusicPlayerPageState extends State<TVMusicPlayerPage> {
       _audioPlayer.resume();
     }
     setState(() => _isPlaying = !_isPlaying);
+    _broadcastState();
   }
 
   void _seekTo(Duration position) {
     _audioPlayer.seek(position);
     setState(() => _currentPosition = position);
+    _broadcastState();
+  }
+
+  /// Stops playback (used by the Wear OS 'stop' command).
+  void stopPlayback() {
+    _audioPlayer.stop();
+    setState(() {
+      _isPlaying = false;
+      _currentPosition = Duration.zero;
+    });
+    _broadcastState();
+    MediaControlService.instance.broadcastEvent('stopped');
   }
 
   Future<void> _toggleLike() async {
@@ -998,5 +1050,46 @@ class _CreatePlaylistDialogState extends State<CreatePlaylistDialog> {
         ),
       ),
     );
+  }
+}
+
+/// Maps Wear OS watch commands to the website/TV music player.
+class _TvMediaControlHandler implements MediaCommandHandler {
+  _TvMediaControlHandler(this.state);
+
+  final _TVMusicPlayerPageState state;
+
+  @override
+  void onCommand(MediaCommand command) {
+    switch (command.action) {
+      case 'togglePlayPause':
+        state._togglePlayPause();
+        break;
+      case 'previous':
+        state._playPreviousSong();
+        break;
+      case 'next':
+        state._playNextSong();
+        break;
+      case 'stop':
+        state.stopPlayback();
+        break;
+      case 'seekForward':
+        state._seekTo(state._currentPosition +
+            Duration(seconds: (command.value ?? 10).toInt()));
+        break;
+      case 'seekBackward':
+        state._seekTo(state._currentPosition -
+            Duration(seconds: (command.value ?? 10).toInt()));
+        break;
+      case 'volumeUp':
+        state._audioPlayer.setVolume(1.0);
+        break;
+      case 'volumeDown':
+        state._audioPlayer.setVolume(0.5);
+        break;
+      default:
+        break;
+    }
   }
 }

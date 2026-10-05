@@ -22,13 +22,13 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace "com.ott_project.media_play"
+    namespace "com.ott_project.media_play_app"
 
     compileSdk = 36
     ndkVersion flutter.ndkVersion
 
     defaultConfig {
-        applicationId "com.ott_project.media_play"
+        applicationId "com.ott_project.media_play_app"
         minSdkVersion = flutter.minSdkVersion
         targetSdk = 36
         versionCode flutterVersionCode.toInteger()
